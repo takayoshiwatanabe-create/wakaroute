@@ -52,6 +52,21 @@
     "no_steps_message": "診断結果がまだありません。あなたの理解度を入力して、診断ボタンを押してください。",
     "ai_suggestion_disclaimer": "🤖 AIからの提案です。最終的な判断はあなた自身が行ってください。",
     "reverse_diagnose_error_generic": "AIが診断に困っているようです。別の表現を試してみましょう。💡"
+  },
+  "parent_dashboard": {
+    "dashboard_title": "保護者ダッシュボード",
+    "dashboard_subtitle": "お子様の学習状況を「発見」として見守りましょう。詳細な個人情報は表示されません。",
+    "ai_decomposition_usage": "AI分解の利用状況",
+    "usage_count": "{used}回 / {limit}回",
+    "last_activity": "最終アクティビティ",
+    "recent_discoveries": "最近の「わかった！」の数",
+    "discoveries_count": "{count}件",
+    "view_details_button": "詳細を見る",
+    "privacy_note_title": "プライバシーに関する注意",
+    "privacy_note_content": "Wakarouteでは、お子様のプライバシーを最優先しています。このダッシュボードでは、お子様の学習状況を「発見」としてポジティブに捉え、詳細な個人識別情報（PII）は表示されません。安心して見守りください。",
+    "activity_today": "今日",
+    "activity_yesterday": "昨日",
+    "activity_two_days_ago": "2日前"
   }
 }
 

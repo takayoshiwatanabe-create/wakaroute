@@ -10,7 +10,7 @@ export default function DecomposePage() {
   const t = useTranslations("decompose");
   const [isLoading, setIsLoading] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
-  const [feedbackType, setFeedbackType] = useState<"success" | "error" | "info" | null>(null);
+  const [feedbackType, setFeedbackType] = useState<"success" | "info" | null>(null); // Removed 'error' type as per positive-first
 
   const handleDecompose = async (textInput: string, imageFile?: File) => {
     setIsLoading(true);

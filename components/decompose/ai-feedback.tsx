@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 
 interface AiFeedbackProps {
   message: string;
-  type: "success" | "error" | "info";
+  type: "success" | "info"; // Removed 'error' type as per positive-first
   className?: string;
 }
 
@@ -22,20 +22,13 @@ export function AiFeedback({ message, type, className }: AiFeedbackProps) {
       icon = "✅"; // Positive icon
       iconColorClass = "text-green-500";
       break;
-    case "error":
-      // Adhering to "ポジティブ・ファースト" - no negative expressions
-      // The spec states "エラーメッセージ・不正解フィードバックは一切ネガティブな表現を使用しない"
-      // So, an "error" type should still be presented positively or neutrally.
-      bgColorClass = "bg-yellow-100 dark:bg-yellow-900";
-      textColorClass = "text-yellow-800 dark:text-yellow-200";
-      icon = "💡"; // Suggestion/Hint icon instead of error, as per "ポジティブ・ファースト"
-      iconColorClass = "text-yellow-500";
-      break;
     case "info":
     default:
+      // This case handles both generic info and what would traditionally be "error"
+      // Adhering to "ポジティブ・ファースト" - no negative expressions
       bgColorClass = "bg-blue-100 dark:bg-blue-900";
       textColorClass = "text-blue-800 dark:text-blue-200";
-      icon = "ℹ️";
+      icon = "💡"; // Suggestion/Hint icon instead of error, as per "ポジティブ・ファースト"
       iconColorClass = "text-blue-500";
       break;
   }

@@ -11,7 +11,7 @@ export default function ReverseDiagnosePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [diagnosisSteps, setDiagnosisSteps] = useState<string[] | null>(null);
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
-  const [feedbackType, setFeedbackType] = useState<"success" | "error" | "info" | null>(null);
+  const [feedbackType, setFeedbackType] = useState<"success" | "info" | null>(null); // Removed 'error' type as per positive-first
 
   const handleDiagnose = async (currentUnderstanding: string) => {
     setIsLoading(true);
@@ -77,3 +77,4 @@ export default function ReverseDiagnosePage() {
     </div>
   );
 }
+

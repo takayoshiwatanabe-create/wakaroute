@@ -52,6 +52,21 @@
     "no_steps_message": "No diagnosis results yet. Please enter your understanding and press the diagnose button.",
     "ai_suggestion_disclaimer": "🤖 This is an AI suggestion. Please make your own final judgment.",
     "reverse_diagnose_error_generic": "The AI seems to be having trouble with the diagnosis. Let's try rephrasing. 💡"
+  },
+  "parent_dashboard": {
+    "dashboard_title": "Parent Dashboard",
+    "dashboard_subtitle": "Monitor your child's learning progress as 'discoveries'. No detailed personal information is displayed.",
+    "ai_decomposition_usage": "AI Decomposition Usage",
+    "usage_count": "{used} times / {limit} times",
+    "last_activity": "Last Activity",
+    "recent_discoveries": "Number of recent 'I got it!' moments",
+    "discoveries_count": "{count} discoveries",
+    "view_details_button": "View Details",
+    "privacy_note_title": "Privacy Note",
+    "privacy_note_content": "At Wakaroute, we prioritize your child's privacy. This dashboard positively frames your child's learning progress as 'discoveries', without displaying detailed Personally Identifiable Information (PII). Please monitor with peace of mind.",
+    "activity_today": "Today",
+    "activity_yesterday": "Yesterday",
+    "activity_two_days_ago": "2 days ago"
   }
 }
 
