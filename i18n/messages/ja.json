@@ -1,0 +1,57 @@
+{
+  "common": {
+    "app_name": "Wakaroute (ワカル・ルート)",
+    "app_subtitle": "「わからない」を「わかった！」に変える学習の道しるべ",
+    "login_button": "ログイン",
+    "signup_link": "新規登録"
+  },
+  "login": {
+    "login_welcome": "おかえりなさい！",
+    "email_placeholder": "メールアドレス",
+    "password_placeholder": "パスワード",
+    "login_button": "ログイン",
+    "loading_button": "ログイン中...",
+    "forgot_password": "パスワードをお忘れですか？",
+    "no_account_yet": "アカウントをお持ちでないですか？",
+    "signup_link": "新規登録",
+    "login_error_message": "ログインに失敗しました。メールアドレスとパスワードをご確認ください。"
+  },
+  "signup": {
+    "signup_welcome": "新しい冒険を始めよう！",
+    "email_placeholder": "メールアドレス",
+    "password_placeholder": "パスワード",
+    "confirm_password_placeholder": "パスワード（確認用）",
+    "signup_button": "新規登録",
+    "loading_button": "登録中...",
+    "already_have_account": "すでにアカウントをお持ちですか？",
+    "login_link": "ログイン",
+    "signup_error_message": "登録に失敗しました。入力内容をご確認ください。",
+    "signup_is_parent": "保護者として登録する",
+    "signup_child_email_placeholder": "お子様のメールアドレス"
+  },
+  "decompose": {
+    "decompose_title": "「わからない」を分解しよう！",
+    "decompose_subtitle": "難しいと感じる言葉や文章、写真などを入力してください。AIがわかりやすいステップに分解してくれます。",
+    "input_placeholder": "ここに「わからない」ことを入力してください。例：微積分の意味がわからない、この写真の植物の名前は？",
+    "image_upload_label": "画像をアップロード",
+    "select_image_button": "画像を選択",
+    "clear_image_button": "画像をクリア",
+    "decompose_button": "分解する！",
+    "decomposing_button": "分解中...",
+    "decompose_error_generic": "AIが分解に困っているようです。別の表現を試してみましょう。💡",
+    "free_plan_limit_reached": "無料プランの制限に達しました。無制限の分解にはプレミアムにアップグレードしてください。💡"
+  },
+  "reverse_diagnose": {
+    "reverse_diagnose_title": "逆のぼり診断",
+    "reverse_diagnose_subtitle": "今わかっていることを入力してください。AIが、あなたがどこから学び直すべきか、スモールステップで提案します。",
+    "input_placeholder": "今わかっていることを具体的に教えてください。例：足し算はできるけど、引き算が苦手です。",
+    "input_aria_label": "現在の理解度を入力するテキストエリア",
+    "diagnose_button": "診断する！",
+    "diagnosing_button": "診断中...",
+    "steps_title": "ここから学び直してみよう！",
+    "no_steps_message": "診断結果がまだありません。あなたの理解度を入力して、診断ボタンを押してください。",
+    "ai_suggestion_disclaimer": "🤖 AIからの提案です。最終的な判断はあなた自身が行ってください。",
+    "reverse_diagnose_error_generic": "AIが診断に困っているようです。別の表現を試してみましょう。💡"
+  }
+}
+

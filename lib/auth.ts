@@ -5,6 +5,34 @@ import { z } from "zod";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
 
+// Extend the NextAuth.js User type to include custom fields
+declare module "next-auth" {
+  interface User {
+    role?: UserRole;
+    parentId?: string | null;
+    plan?: UserPlan;
+  }
+  interface Session {
+    user: {
+      id: string;
+      email: string;
+      role?: UserRole;
+      parentId?: string | null;
+      plan?: UserPlan;
+    } & Session["user"];
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id?: string;
+    email?: string;
+    role?: UserRole;
+    parentId?: string | null;
+    plan?: UserPlan;
+  }
+}
+
 // Define the user roles as per the project specification (implicit from parent/child logic)
 export type UserRole = "CHILD" | "PARENT";
 export type UserPlan = "Free" | "Premium" | "Family" | "School"; // Define UserPlan type

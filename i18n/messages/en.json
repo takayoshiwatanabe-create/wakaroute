@@ -1,0 +1,57 @@
+{
+  "common": {
+    "app_name": "Wakaroute",
+    "app_subtitle": "Your Learning Compass: Turning 'I don't know' into 'I got it!'",
+    "login_button": "Login",
+    "signup_link": "Sign Up"
+  },
+  "login": {
+    "login_welcome": "Welcome back!",
+    "email_placeholder": "Email Address",
+    "password_placeholder": "Password",
+    "login_button": "Login",
+    "loading_button": "Logging in...",
+    "forgot_password": "Forgot password?",
+    "no_account_yet": "Don't have an account yet?",
+    "signup_link": "Sign Up",
+    "login_error_message": "Login failed. Please check your email and password."
+  },
+  "signup": {
+    "signup_welcome": "Start a new adventure!",
+    "email_placeholder": "Email Address",
+    "password_placeholder": "Password",
+    "confirm_password_placeholder": "Confirm Password",
+    "signup_button": "Sign Up",
+    "loading_button": "Signing up...",
+    "already_have_account": "Already have an account?",
+    "login_link": "Login",
+    "signup_error_message": "Sign up failed. Please check your input.",
+    "signup_is_parent": "Register as a parent",
+    "signup_child_email_placeholder": "Child's email address"
+  },
+  "decompose": {
+    "decompose_title": "Decompose What You Don't Understand!",
+    "decompose_subtitle": "Enter words, sentences, or upload photos that you find difficult. Our AI will break them down into easy-to-understand steps.",
+    "input_placeholder": "Enter what you don't understand here. E.g., 'I don't understand the meaning of calculus,' or 'What is the name of this plant in the picture?'",
+    "image_upload_label": "Upload Image",
+    "select_image_button": "Select Image",
+    "clear_image_button": "Clear Image",
+    "decompose_button": "Decompose!",
+    "decomposing_button": "Decomposing...",
+    "decompose_error_generic": "The AI seems to be having trouble decomposing. Let's try rephrasing. 💡",
+    "free_plan_limit_reached": "Free plan limit reached. Upgrade to Premium for unlimited decompositions. 💡"
+  },
+  "reverse_diagnose": {
+    "reverse_diagnose_title": "Reverse Diagnosis",
+    "reverse_diagnose_subtitle": "Tell us what you currently understand. Our AI will suggest small steps to help you learn from where you left off.",
+    "input_placeholder": "Please describe what you currently understand. E.g., 'I can do addition, but I struggle with subtraction.'",
+    "input_aria_label": "Text area to input current understanding",
+    "diagnose_button": "Diagnose!",
+    "diagnosing_button": "Diagnosing...",
+    "steps_title": "Let's learn from here!",
+    "no_steps_message": "No diagnosis results yet. Please enter your understanding and press the diagnose button.",
+    "ai_suggestion_disclaimer": "🤖 This is an AI suggestion. Please make your own final judgment.",
+    "reverse_diagnose_error_generic": "The AI seems to be having trouble with the diagnosis. Let's try rephrasing. 💡"
+  }
+}
+

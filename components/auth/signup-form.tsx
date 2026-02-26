@@ -54,7 +54,7 @@ const formSchema = z.object({
   message: "Passwords don't match.",
   path: ["confirmPassword"],
 }).refine((data) => !data.isParent || (data.isParent && data.childEmail && z.string().email().safeParse(data.childEmail).success), {
-  message: "Parent email is required for child registration and must be a valid email.",
+  message: "Child email is required for parent registration and must be a valid email.",
   path: ["childEmail"],
 });
 
@@ -163,5 +163,4 @@ export function SignupForm() {
     </form>
   );
 }
-
 

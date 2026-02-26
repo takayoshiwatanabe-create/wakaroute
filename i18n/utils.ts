@@ -10,3 +10,4 @@ export function isRTL(locale: string): boolean {
   const rtlLocales = ['ar', 'fa', 'he', 'ur']; // Arabic, Persian, Hebrew, Urdu
   return rtlLocales.includes(locale.split('-')[0]); // Check base language code
 }
+

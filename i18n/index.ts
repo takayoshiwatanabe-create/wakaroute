@@ -16,3 +16,4 @@ export default getRequestConfig(async ({ locale }) => {
     // Other configurations can go here
   };
 });
+
