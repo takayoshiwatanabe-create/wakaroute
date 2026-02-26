@@ -4,8 +4,8 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
-import type { JWT } from "@auth/core/jwt"; // Corrected import for JWT type extension
-import type { Session, User } from "next-auth"; // Import Session and User types
+import type { JWT } from "@auth/core/jwt";
+import type { Session, User } from "next-auth";
 
 // Define the user roles as per the project specification (implicit from parent/child logic)
 export type UserRole = "CHILD" | "PARENT";
@@ -17,6 +17,9 @@ declare module "next-auth" {
     role?: UserRole;
     parentId?: string | null;
     plan?: UserPlan;
+    stripeCustomerId?: string | null; // Add stripeCustomerId
+    stripeSubscriptionId?: string | null; // Add stripeSubscriptionId
+    monthlyAiDecompositions?: number; // Add monthlyAiDecompositions
   }
   interface Session {
     user: {
@@ -25,17 +28,23 @@ declare module "next-auth" {
       role?: UserRole;
       parentId?: string | null;
       plan?: UserPlan;
+      stripeCustomerId?: string | null; // Add stripeCustomerId
+      stripeSubscriptionId?: string | null; // Add stripeSubscriptionId
+      monthlyAiDecompositions?: number; // Add monthlyAiDecompositions
     } & Session["user"];
   }
 }
 
-declare module "@auth/core/jwt" { // Corrected import for JWT type extension
+declare module "@auth/core/jwt" {
   interface JWT {
     id?: string;
     email?: string;
     role?: UserRole;
     parentId?: string | null;
     plan?: UserPlan;
+    stripeCustomerId?: string | null; // Add stripeCustomerId
+    stripeSubscriptionId?: string | null; // Add stripeSubscriptionId
+    monthlyAiDecompositions?: number; // Add monthlyAiDecompositions
   }
 }
 
@@ -81,6 +90,9 @@ export const {
               role: user.role as UserRole, // Ensure role is correctly typed
               parentId: user.parentId,
               plan: user.plan as UserPlan, // Ensure plan is correctly typed
+              stripeCustomerId: user.stripeCustomerId,
+              stripeSubscriptionId: user.stripeSubscriptionId,
+              monthlyAiDecompositions: user.monthlyAiDecompositions, // Include this field
             };
           }
         }
@@ -98,6 +110,32 @@ export const {
         token.role = user.role as UserRole;
         token.parentId = user.parentId;
         token.plan = user.plan as UserPlan;
+        token.stripeCustomerId = user.stripeCustomerId;
+        token.stripeSubscriptionId = user.stripeSubscriptionId;
+        token.monthlyAiDecompositions = user.monthlyAiDecompositions; // Include this field
+      }
+      // Fetch the latest user data from DB to ensure token is always up-to-date
+      // This is crucial for plan changes, AI usage updates etc.
+      if (token.id) {
+        const dbUser = await db.user.findUnique({
+          where: { id: token.id as string },
+          select: {
+            role: true,
+            parentId: true,
+            plan: true,
+            stripeCustomerId: true,
+            stripeSubscriptionId: true,
+            monthlyAiDecompositions: true,
+          },
+        });
+        if (dbUser) {
+          token.role = dbUser.role as UserRole;
+          token.parentId = dbUser.parentId;
+          token.plan = dbUser.plan as UserPlan;
+          token.stripeCustomerId = dbUser.stripeCustomerId;
+          token.stripeSubscriptionId = dbUser.stripeSubscriptionId;
+          token.monthlyAiDecompositions = dbUser.monthlyAiDecompositions;
+        }
       }
       return token;
     },
@@ -109,6 +147,9 @@ export const {
         session.user.role = token.role as UserRole; // Cast to UserRole
         session.user.parentId = token.parentId as string | null; // Cast to string | null
         session.user.plan = token.plan as UserPlan; // Cast to UserPlan
+        session.user.stripeCustomerId = token.stripeCustomerId as string | null;
+        session.user.stripeSubscriptionId = token.stripeSubscriptionId as string | null;
+        session.user.monthlyAiDecompositions = token.monthlyAiDecompositions as number; // Include this field
       }
       return session;
     },

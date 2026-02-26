@@ -74,6 +74,8 @@ export async function generateDecomposition(
   const parts: (string | { inlineData: { data: string; mimeType: string } })[] = [];
 
   // Construct the prompt based on available input
+  // CLAUDE.md Section 1.1: コアミッション「わからない」を恥にしない。戻ることを前進に変える。
+  // CLAUDE.md Section 1.2: 設計哲学 - ポジティブ・ファースト, スモールステップ絶対主義, AI補助・人間主体
   let prompt = "以下の内容について、子どもにもわかるように、ポジティブな言葉で、スモールステップで分解して説明してください。難しい言葉は使わず、比喩や具体例を交えてください。答えは「提案」として提示し、断定的な表現は避けてください。";
 
   if (textInput) {
@@ -93,8 +95,9 @@ export async function generateDecomposition(
   }
 
   try {
+    // CLAUDE.md Section 2.3: AIリクエストはServer-side専用エンドポイント経由
     const result = await model.generateContent({
-      contents: [{ role: "user", parts: parts as (string | { inlineData: { data: string; mimeType: string } })[] }], // Cast parts to the correct type
+      contents: [{ role: "user", parts: parts }], // Cast parts to the correct type
     });
 
     const response = result.response;
@@ -104,11 +107,13 @@ export async function generateDecomposition(
       return { error: "AI did not return a valid decomposition." };
     }
 
-    // AI生成コンテンツには視覚的マーカー（🤖アイコン等）を付与
+    // CLAUDE.md Section 6.1: AI生成コンテンツには視覚的マーカー（🤖アイコン等）を付与
     return { decomposition: `🤖 ${text}` };
   } catch (e: any) {
     console.error("Gemini API error:", e);
     // Check for specific safety errors
+    // CLAUDE.md Section 6.1: 有害コンテンツフィルタリングは必ず有効化
+    // CLAUDE.md Section 6.2: 必須フィルタリング項目
     if (e.response && e.response.promptFeedback && e.response.promptFeedback.safetyRatings) {
       const safetyRatings = e.response.promptFeedback.safetyRatings;
       const blockedCategories = safetyRatings
@@ -123,3 +128,4 @@ export async function generateDecomposition(
     return { error: "Failed to generate decomposition from AI." };
   }
 }
+

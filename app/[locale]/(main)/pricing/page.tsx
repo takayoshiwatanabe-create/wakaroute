@@ -7,7 +7,7 @@ import { useLocale } from "next-intl";
 import { isRTL } from '@/i18n/utils';
 import { getSession } from "next-auth/react"; // Client-side session retrieval
 import { UserPlan } from "@/lib/auth"; // Import UserPlan
-import { updatePlanAction } from "./actions"; // Import the server action for updating plan
+import { createStripeCheckoutSessionAction } from "@/app/(main)/pricing/actions"; // Import the server action for updating plan
 
 export default function PricingPage() {
   const t = useTranslations("pricing");
@@ -39,13 +39,16 @@ export default function PricingPage() {
 
     try {
       // Call the server action to update the user's plan
-      const result = await updatePlanAction(planName);
+      const result = await createStripeCheckoutSessionAction(planName);
 
       if (result.success) {
-        setCurrentPlan(planName); // Update local state on success
-        alert(t("plan_selected_message", { planName }));
-        // Optionally, re-fetch session to ensure client-side state is fully synchronized
-        // await getSession({ force: true });
+        if (result.url) {
+          window.location.href = result.url; // Redirect to Stripe checkout
+        } else {
+          // If no URL, it means the plan was updated directly (e.g., Free plan)
+          setCurrentPlan(planName); // Update local state on success
+          alert(t("plan_selected_message", { planName }));
+        }
       } else {
         setUpdateError(result.error || t("plan_update_error_generic"));
       }
@@ -145,3 +148,4 @@ export default function PricingPage() {
     </div>
   );
 }
+

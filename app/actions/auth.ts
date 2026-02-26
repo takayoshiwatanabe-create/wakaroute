@@ -2,15 +2,16 @@
 
 import { z } from "zod";
 import bcrypt from "bcryptjs";
-import { db } from "@/lib/db"; // Assuming db is correctly configured
-import { UserRole, UserPlan } from "@/lib/auth"; // Assuming UserRole is defined in lib/auth
+import { db } from "@/lib/db";
+import { UserRole, UserPlan } from "@/lib/auth";
 
+// CLAUDE.md Section 2.3: すべてのServer Actionsは入力バリデーション（Zod）を実施
 const signupSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
-  confirmPassword: z.string(), // This is refined in the client-side form, but good to have here for server-side validation if needed
+  confirmPassword: z.string(),
   isParent: z.boolean().default(false),
-  childEmail: z.string().email({ message: "Invalid email address." }).optional().or(z.literal('')), // Allow empty string for optional
+  childEmail: z.string().email({ message: "Invalid email address." }).optional().or(z.literal('')),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match.",
   path: ["confirmPassword"],
@@ -35,13 +36,16 @@ export async function signupAction(values: z.infer<typeof signupSchema>) {
   }
 
   // Hash password with bcrypt (cost factor 12 or more)
-  const hashedPassword = await bcrypt.hash(password, 12); // Cost factor 12 as per spec
+  // CLAUDE.md Section 3.2: パスワードは bcrypt（コスト係数12以上）でハッシュ化
+  const hashedPassword = await bcrypt.hash(password, 12);
 
   let parentId: string | null = null;
   let role: UserRole = isParent ? "PARENT" : "CHILD";
   let plan: UserPlan = "Free"; // Default plan for new users
 
   if (!isParent) { // If the user signing up is a child
+    // CLAUDE.md Section 3.1: 13歳未満ユーザーの登録には保護者メール確認を必須とする
+    // CLAUDE.md Section 3.1: 子どもアカウントは保護者アカウントに紐づける（孤立禁止）
     if (!childEmail) {
       return { error: "Parent email is required for child registration." };
     }
@@ -58,10 +62,8 @@ export async function signupAction(values: z.infer<typeof signupSchema>) {
         email,
         passwordHash: hashedPassword,
         role,
-        parentId, // Will be null for parents, or the parent's ID for children
-        // Initialize monthlyAiDecompositions for new users
+        parentId,
         monthlyAiDecompositions: 0,
-        // Set default plan
         plan,
       },
     });
@@ -71,3 +73,4 @@ export async function signupAction(values: z.infer<typeof signupSchema>) {
     return { error: "Failed to register user." };
   }
 }
+

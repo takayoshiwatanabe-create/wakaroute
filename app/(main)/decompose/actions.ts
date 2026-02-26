@@ -38,6 +38,7 @@ export async function decomposeAction(formData: FormData) {
   const userId = session.user.id;
 
   // Apply rate limiting
+  // CLAUDE.md Section 3.2: Rate Limiting: AI APIエンドポイントは1ユーザー/分10リクエスト上限
   const { success, limit, reset, remaining } = await ratelimit.limit(userId);
 
   if (!success) {
@@ -57,6 +58,7 @@ export async function decomposeAction(formData: FormData) {
     imageFile: imageFile && imageFile.size > 0 ? imageFile : undefined,
   };
 
+  // CLAUDE.md Section 2.3: すべてのServer Actionsは入力バリデーション（Zod）を実施
   const validatedFields = decomposeInputSchema.safeParse(inputData);
 
   if (!validatedFields.success) {
@@ -72,6 +74,7 @@ export async function decomposeAction(formData: FormData) {
       select: { plan: true, monthlyAiDecompositions: true }
     });
 
+    // CLAUDE.md Section 5.1: Free プラン: AI分解: 月5回まで
     if (user?.plan === 'Free' && user.monthlyAiDecompositions >= 5) {
       return {
         success: false,
@@ -92,11 +95,16 @@ export async function decomposeAction(formData: FormData) {
       };
     }
 
-    // Update user's AI decomposition count
-    await db.user.update({
-      where: { id: userId },
-      data: { monthlyAiDecompositions: { increment: 1 } }
-    });
+    // Update user's AI decomposition count only if not a Premium/Family/School plan
+    // CLAUDE.md Section 5.1: Premium プラン: AI分解: 無制限
+    // CLAUDE.md Section 5.1: Family プラン: AI分解: 無制限
+    // CLAUDE.md Section 5.1: School プラン: AI分解: 無制限
+    if (user?.plan === 'Free') {
+      await db.user.update({
+        where: { id: userId },
+        data: { monthlyAiDecompositions: { increment: 1 } }
+      });
+    }
 
     return {
       success: true,
