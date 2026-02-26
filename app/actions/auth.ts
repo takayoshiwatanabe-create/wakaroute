@@ -3,7 +3,7 @@
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db"; // Assuming db is correctly configured
-import { UserRole } from "@/lib/auth"; // Assuming UserRole is defined in lib/auth
+import { UserRole, UserPlan } from "@/lib/auth"; // Assuming UserRole is defined in lib/auth
 
 const signupSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -39,6 +39,7 @@ export async function signupAction(values: z.infer<typeof signupSchema>) {
 
   let parentId: string | null = null;
   let role: UserRole = isParent ? "PARENT" : "CHILD";
+  let plan: UserPlan = "Free"; // Default plan for new users
 
   if (!isParent) { // If the user signing up is a child
     if (!childEmail) {
@@ -61,7 +62,7 @@ export async function signupAction(values: z.infer<typeof signupSchema>) {
         // Initialize monthlyAiDecompositions for new users
         monthlyAiDecompositions: 0,
         // Set default plan
-        plan: 'Free',
+        plan,
       },
     });
     return { success: "User registered successfully!" };
@@ -70,4 +71,5 @@ export async function signupAction(values: z.infer<typeof signupSchema>) {
     return { error: "Failed to register user." };
   }
 }
+
 

@@ -19,4 +19,3 @@ export const decomposeInputSchema = z.object({
 
 export type DecomposeInput = z.infer<typeof decomposeInputSchema>;
 
-

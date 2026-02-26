@@ -94,7 +94,7 @@ export async function generateDecomposition(
 
   try {
     const result = await model.generateContent({
-      contents: [{ role: "user", parts }],
+      contents: [{ role: "user", parts: parts as (string | { inlineData: { data: string; mimeType: string } })[] }], // Cast parts to the correct type
     });
 
     const response = result.response;

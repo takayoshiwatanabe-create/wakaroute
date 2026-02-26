@@ -1,0 +1,73 @@
+{
+  "common": {
+    "app_name": "واكاروت (Wakaroute)",
+    "app_subtitle": "بوصلة تعلمك: تحويل 'لا أعرف' إلى 'فهمت!'",
+    "login_button": "تسجيل الدخول",
+    "signup_link": "التسجيل"
+  },
+  "login": {
+    "login_welcome": "أهلاً بعودتك!",
+    "email_placeholder": "عنوان البريد الإلكتروني",
+    "password_placeholder": "كلمة المرور",
+    "login_button": "تسجيل الدخول",
+    "loading_button": "جارٍ تسجيل الدخول...",
+    "forgot_password": "هل نسيت كلمة المرور؟",
+    "no_account_yet": "ليس لديك حساب بعد؟",
+    "signup_link": "التسجيل",
+    "login_error_message": "فشل تسجيل الدخول. يرجى التحقق من بريدك الإلكتروني وكلمة المرور."
+  },
+  "signup": {
+    "signup_welcome": "ابدأ مغامرة جديدة!",
+    "email_placeholder": "عنوان البريد الإلكتروني",
+    "password_placeholder": "كلمة المرور",
+    "confirm_password_placeholder": "تأكيد كلمة المرور",
+    "signup_button": "التسجيل",
+    "loading_button": "جارٍ التسجيل...",
+    "already_have_account": "هل لديك حساب بالفعل؟",
+    "login_link": "تسجيل الدخول",
+    "signup_error_message": "فشل التسجيل. يرجى التحقق من إدخالاتك.",
+    "signup_is_parent": "التسجيل كوالد/ة",
+    "signup_child_email_placeholder": "عنوان البريد الإلكتروني للطفل"
+  },
+  "decompose": {
+    "decompose_title": "فكك ما لا تفهمه!",
+    "decompose_subtitle": "أدخل الكلمات أو الجمل أو قم بتحميل الصور التي تجدها صعبة. سيقوم الذكاء الاصطناعي لدينا بتقسيمها إلى خطوات سهلة الفهم.",
+    "input_placeholder": "أدخل ما لا تفهمه هنا. مثال: 'لا أفهم معنى التفاضل والتكامل'، أو 'ما اسم هذا النبات في الصورة؟'",
+    "image_upload_label": "تحميل صورة",
+    "select_image_button": "اختر صورة",
+    "clear_image_button": "مسح الصورة",
+    "decompose_button": "فكك!",
+    "decomposing_button": "جارٍ التفكيك...",
+    "decompose_error_generic": "يبدو أن الذكاء الاصطناعي يواجه مشكلة في التفكيك. دعنا نحاول إعادة الصياغة. 💡",
+    "free_plan_limit_reached": "تم الوصول إلى حد الخطة المجانية. قم بالترقية إلى Premium للحصول على تفكيك غير محدود. 💡"
+  },
+  "reverse_diagnose": {
+    "reverse_diagnose_title": "التشخيص العكسي",
+    "reverse_diagnose_subtitle": "أخبرنا بما تفهمه حاليًا. سيقترح الذكاء الاصطناعي لدينا خطوات صغيرة لمساعدتك على التعلم من حيث توقفت.",
+    "input_placeholder": "يرجى وصف ما تفهمه حاليًا. مثال: 'يمكنني إجراء الجمع، لكنني أواجه صعوبة في الطرح.'",
+    "input_aria_label": "مساحة نصية لإدخال الفهم الحالي",
+    "diagnose_button": "تشخيص!",
+    "diagnosing_button": "جارٍ التشخيص...",
+    "steps_title": "دعنا نتعلم من هنا!",
+    "no_steps_message": "لا توجد نتائج تشخيص بعد. يرجى إدخال فهمك والضغط على زر التشخيص.",
+    "ai_suggestion_disclaimer": "🤖 هذا اقتراح من الذكاء الاصطناعي. يرجى اتخاذ قرارك النهائي بنفسك.",
+    "reverse_diagnose_error_generic": "يبدو أن الذكاء الاصطناعي يواجه مشكلة في التشخيص. دعنا نحاول إعادة الصياغة. 💡"
+  },
+  "parent_dashboard": {
+    "dashboard_title": "لوحة تحكم الوالدين",
+    "dashboard_subtitle": "راقب تقدم تعلم طفلك كـ 'اكتشافات'. لا يتم عرض معلومات شخصية مفصلة.",
+    "ai_decomposition_usage": "استخدام تفكيك الذكاء الاصطناعي",
+    "usage_count": "{used} مرة / {limit} مرة",
+    "last_activity": "آخر نشاط",
+    "recent_discoveries": "عدد لحظات 'فهمت!' الأخيرة",
+    "discoveries_count": "{count} اكتشافات",
+    "view_details_button": "عرض التفاصيل",
+    "privacy_note_title": "ملاحظة الخصوصية",
+    "privacy_note_content": "في واكاروت، نولي أولوية قصوى لخصوصية طفلك. تعرض لوحة التحكم هذه تقدم تعلم طفلك بشكل إيجابي كـ 'اكتشافات'، دون عرض معلومات تعريف شخصية مفصلة (PII). يرجى المراقبة براحة بال.",
+    "activity_today": "اليوم",
+    "activity_yesterday": "أمس",
+    "activity_two_days_ago": "قبل يومين",
+    "loading_children_progress": "جارٍ تحميل تقدم الأطفال...",
+    "no_children_registered": "لم يتم تسجيل أي أطفال بعد. يرجى التأكد من ربط حسابات أطفالك."
+  }
+}

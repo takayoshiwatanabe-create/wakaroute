@@ -66,7 +66,8 @@
     "privacy_note_content": "Wakarouteでは、お子様のプライバシーを最優先しています。このダッシュボードでは、お子様の学習状況を「発見」としてポジティブに捉え、詳細な個人識別情報（PII）は表示されません。安心して見守りください。",
     "activity_today": "今日",
     "activity_yesterday": "昨日",
-    "activity_two_days_ago": "2日前"
+    "activity_two_days_ago": "2日前",
+    "loading_children_progress": "お子様の進捗を読み込み中...",
+    "no_children_registered": "まだお子様が登録されていません。お子様のアカウントが連携されていることを確認してください。"
   }
 }
-
