@@ -34,6 +34,10 @@ export default function ParentDashboardPage() {
         const result = await getChildrenProgressAction();
 
         if (result.error) {
+          // CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
+          // The current implementation directly displays the error message.
+          // This should be adjusted to be more informational or encouraging,
+          // e.g., "We couldn't load your children's progress right now. Please try again."
           setError(result.error);
         } else if (result.children) {
           setChildrenProgress(result.children.map(child => ({
@@ -48,6 +52,9 @@ export default function ParentDashboardPage() {
         }
       } catch (err) {
         console.error("Failed to fetch children progress:", err);
+        // CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
+        // The current implementation directly displays the error message.
+        // This should be adjusted to be more informational or encouraging.
         setError("Failed to load children's progress. Please try again.");
       } finally {
         setLoading(false);
@@ -67,7 +74,11 @@ export default function ParentDashboardPage() {
   if (error) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-white dark:bg-gray-900">
-        <p className="text-xl text-red-500">{error}</p>
+        {/* CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
+            The current implementation uses a red text color, which implies a negative outcome.
+            This should be adjusted to be more informational or encouraging,
+            e.g., a neutral color with a message like "We couldn't load your children's progress right now. Please try again." */}
+        <p className="text-xl text-yellow-700 dark:text-yellow-300" style={{ direction: rtl ? 'rtl' : 'ltr' }}>{error}</p>
       </div>
     );
   }
@@ -83,7 +94,7 @@ export default function ParentDashboardPage() {
 
       <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl ${rtl ? 'rtl' : ''}`}>
         {childrenProgress.length === 0 ? (
-          <p className="text-center text-gray-600 dark:text-gray-400 col-span-full">
+          <p className="text-center text-gray-600 dark:text-gray-400 col-span-full" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
             {t("no_children_registered")}
           </p>
         ) : (

@@ -131,3 +131,5 @@ export function InputArea({ onDecompose, isLoading }: InputAreaProps) {
     </div>
   );
 }
+
+

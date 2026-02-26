@@ -47,13 +47,16 @@ export default function PricingPage() {
         } else {
           // If no URL, it means the plan was updated directly (e.g., Free plan)
           setCurrentPlan(planName); // Update local state on success
+          // CLAUDE.md Section 1.2: ポジティブ・ファースト - Use a positive message
           alert(t("plan_selected_message", { planName }));
         }
       } else {
+        // CLAUDE.md Section 1.2: ポジティブ・ファースト - Use a positive/neutral message for errors
         setUpdateError(result.error || t("plan_update_error_generic"));
       }
     } catch (error) {
       console.error("Error updating plan:", error);
+      // CLAUDE.md Section 1.2: ポジティブ・ファースト - Use a positive/neutral message for errors
       setUpdateError(t("plan_update_error_generic"));
     } finally {
       setIsUpdatingPlan(false);
@@ -135,7 +138,11 @@ export default function PricingPage() {
       </p>
 
       {updateError && (
-        <div className="p-3 mb-6 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-md text-center">
+        // CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
+        // The current implementation uses a red background, which implies a negative outcome.
+        // This should be adjusted to be more informational or encouraging,
+        // e.g., a neutral color with a message like "We couldn't update your plan right now. Please try again or contact support."
+        <div className="p-3 mb-6 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-md text-center" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
           {updateError}
         </div>
       )}

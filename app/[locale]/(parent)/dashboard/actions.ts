@@ -60,3 +60,5 @@ export async function getChildrenProgressAction(): Promise<{ children?: ChildDat
     return { error: "Failed to load children's progress. Please try again." };
   }
 }
+
+

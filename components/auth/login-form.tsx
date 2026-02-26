@@ -60,16 +60,17 @@ export function LoginForm() {
 
       if (result?.error) {
         // CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
-        // This is a deviation. The error message is currently directly displayed.
-        // It should be rephrased to be more encouraging or informational.
+        // The current implementation directly displays the error message.
+        // This should be adjusted to be more informational or encouraging,
+        // e.g., "We couldn't log you in right now. Please check your details and try again."
         setError(t("login_error_message"));
       } else {
         router.push(`/${locale}/decompose`); // Redirect to decompose page on success
       }
     } catch (e) {
       // CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
-      // This is a deviation. The error message is currently directly displayed.
-      // It should be rephrased to be more encouraging or informational.
+      // The current implementation directly displays the error message.
+      // This should be adjusted to be more informational or encouraging.
       setError(t("login_error_message"));
     } finally {
       setLoading(false);
@@ -78,7 +79,7 @@ export function LoginForm() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-md p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
-      {error && <p className="text-red-500 text-center mb-4" style={{ direction: rtl ? 'rtl' : 'ltr' }}>{error}</p>}
+      {error && <p className="text-yellow-700 dark:text-yellow-300 text-center mb-4" style={{ direction: rtl ? 'rtl' : 'ltr' }}>{error}</p>}
       <Input
         {...form.register("email")}
         type="email"
