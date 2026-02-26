@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import { getMessages } from 'next-intl/server';
 import { isRTL } from '@/i18n/utils'; // Import isRTL from the new utility file
 import { SessionProvider } from 'next-auth/react'; // Import SessionProvider
+import { auth } from '@/lib/auth'; // Import auth to get session on server
 
 // Import global CSS (Tailwind)
 import '../../global.css';
@@ -24,17 +25,22 @@ export default async function LocaleLayout({ children, params: { locale } }: Roo
   if (!locales.includes(locale)) notFound();
 
   // Get messages for the current locale
+  // @ts-ignore - messages type is complex, next-intl handles it
   const messages = await getMessages({ locale }); // Pass locale to getMessages
 
   // Determine if the current locale requires RTL layout using the utility function
   // CLAUDE.md Section 4.4: RTL（右から左）レイアウト: アラビア語で全画面テスト必須
   const rtl = isRTL(locale);
 
+  // Get session on the server side
+  const session = await auth();
+
   return (
     <html lang={locale} dir={rtl ? 'rtl' : 'ltr'}>
       <body className={inter.className}>
         {/* SessionProvider should wrap the entire application to make session available to all components */}
-        <SessionProvider>
+        {/* Pass the server-side fetched session to the client-side SessionProvider */}
+        <SessionProvider session={session}>
           <NextIntlClientProvider messages={messages}> {/* messages prop is enough, locale is implicitly available */}
             {children}
           </NextIntlClientProvider>
@@ -43,5 +49,3 @@ export default async function LocaleLayout({ children, params: { locale } }: Roo
     </html>
   );
 }
-
-

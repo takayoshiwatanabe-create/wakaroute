@@ -49,4 +49,3 @@ export function StepDisplay({ steps, className }: StepDisplayProps) {
   );
 }
 
-

@@ -4,4 +4,3 @@ import { handlers } from "@/lib/auth";
 // This sets up the authentication API routes for NextAuth.js
 export const { GET, POST } = handlers;
 
-

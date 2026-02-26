@@ -24,7 +24,7 @@ export default function PricingPage() {
       setLoadingSession(true);
       const session = await getSession();
       if (session?.user?.plan) {
-        setCurrentPlan(session.user.plan);
+        setCurrentPlan(session.user.plan as UserPlan); // Cast to UserPlan
       }
       setLoadingSession(false);
     };
