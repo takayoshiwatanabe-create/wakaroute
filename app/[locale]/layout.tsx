@@ -1,14 +1,11 @@
-"use client";
-
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
-import { getMessages, getLocale } from 'next-intl/server'; // This import is for server components
 import { Inter } from 'next/font/google';
-import { dir } from 'i18next'; // For RTL support
+import { getMessages } from 'next-intl/server';
 
 // Import global CSS (Tailwind)
-import '../global.css';
+import '../../global.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,7 +16,7 @@ interface RootLayoutProps {
   params: { locale: string };
 }
 
-export default async function RootLayout({ children, params: { locale } }: RootLayoutProps) {
+export default async function LocaleLayout({ children, params: { locale } }: RootLayoutProps) {
   // Validate that the incoming `locale` parameter is a valid locale
   if (!locales.includes(locale as any)) notFound();
 

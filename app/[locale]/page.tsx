@@ -1,4 +1,4 @@
-"use client";
+// This is a client component, but it's nested under the locale segment
 
 import { useTranslations } from "next-intl";
 import Link from "next/link"; // Import Link from next/link
