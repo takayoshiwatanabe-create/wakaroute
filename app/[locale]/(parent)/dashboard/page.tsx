@@ -12,7 +12,7 @@ interface ChildProgress {
   id: string;
   name: string;
   aiDecompositionsUsed: number;
-  aiDecompositionsLimit: number;
+  aiDecompositionsLimit: number | typeof Infinity; // Allow Infinity for unlimited
   lastActivity: "activity_today" | "activity_yesterday" | "activity_two_days_ago"; // Specific keys for translation
   recentDiscoveries: number;
 }
@@ -112,4 +112,3 @@ export default function ParentDashboardPage() {
     </div>
   );
 }
-

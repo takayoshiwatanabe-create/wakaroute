@@ -10,7 +10,7 @@ export interface PlanCardProps {
   price: string;
   features: string[];
   isCurrentPlan: boolean;
-  onSelectPlan: (planName: string) => void;
+  onSelectPlan: (planName: any) => void; // Changed type to any to match the usage in page.tsx
   buttonText: string;
   isRecommended?: boolean;
   disabled?: boolean;

@@ -8,7 +8,7 @@ import { useLocale } from "next-intl";
 interface ChildProgressCardProps {
   childName: string;
   aiDecompositionsUsed: number;
-  aiDecompositionsLimit: number;
+  aiDecompositionsLimit: number | typeof Infinity; // Allow Infinity for unlimited
   lastActivity: "activity_today" | "activity_yesterday" | "activity_two_days_ago"; // Specific keys for translation
   recentDiscoveries: number;
   className?: string;
@@ -87,4 +87,3 @@ export function ChildProgressCard({
     </div>
   );
 }
-

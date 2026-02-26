@@ -58,6 +58,7 @@
     "dashboard_subtitle": "Monitor your child's learning progress as 'discoveries'. No detailed personal information is displayed.",
     "ai_decomposition_usage": "AI Decomposition Usage",
     "usage_count": "{used} times / {limit} times",
+    "unlimited": "Unlimited",
     "last_activity": "Last Activity",
     "recent_discoveries": "Number of recent 'I got it!' moments",
     "discoveries_count": "{count} discoveries",
@@ -99,6 +100,8 @@
     "current_plan_button": "Current Plan",
     "recommended_badge": "Recommended",
     "plan_selected_message": "Plan {planName} selected.",
-    "loading_plans": "Loading pricing plans..."
+    "loading_plans": "Loading pricing plans...",
+    "plan_update_error_generic": "Failed to update plan. Please try again."
   }
 }
+

@@ -128,4 +128,3 @@ export async function generateDecomposition(
     return { error: "Failed to generate decomposition from AI." };
   }
 }
-

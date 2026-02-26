@@ -38,7 +38,7 @@
     "clear_image_button": "مسح الصورة",
     "decompose_button": "فكك!",
     "decomposing_button": "جارٍ التفكيك...",
-    "decompose_error_generic": "يبدو أن الذكاء الاصناعي يواجه مشكلة في التفكيك. دعنا نحاول إعادة الصياغة. 💡",
+    "decompose_error_generic": "يبدو أن الذكاء الاصطناعي يواجه مشكلة في التفكيك. دعنا نحاول إعادة الصياغة. 💡",
     "free_plan_limit_reached": "تم الوصول إلى حد الخطة المجانية. قم بالترقية إلى Premium للحصول على تفكيك غير محدود. 💡"
   },
   "reverse_diagnose": {
@@ -104,3 +104,4 @@
     "plan_update_error_generic": "فشل تحديث الخطة. يرجى المحاولة مرة أخرى."
   }
 }
+

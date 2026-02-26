@@ -73,4 +73,3 @@ export async function signupAction(values: z.infer<typeof signupSchema>) {
     return { error: "Failed to register user." };
   }
 }
-

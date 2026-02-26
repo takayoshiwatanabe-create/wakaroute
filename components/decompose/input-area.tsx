@@ -98,6 +98,15 @@ export function InputArea({ onDecompose, isLoading }: InputAreaProps) {
         >
           {t("select_image_button")}
         </Button>
+        <Input
+          id="image-upload"
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={handleImageChange}
+          className="hidden" // Hide the actual file input
+          disabled={isLoading}
+        />
       </div>
 
       {imageFile && (
