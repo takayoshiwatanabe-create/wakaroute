@@ -25,7 +25,6 @@ export default async function LocaleLayout({ children, params: { locale } }: Roo
   if (!locales.includes(locale)) notFound();
 
   // Get messages for the current locale
-  // @ts-ignore - messages type is complex, next-intl handles it
   const messages = await getMessages({ locale }); // Pass locale to getMessages
 
   // Determine if the current locale requires RTL layout using the utility function

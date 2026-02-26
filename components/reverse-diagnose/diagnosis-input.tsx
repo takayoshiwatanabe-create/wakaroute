@@ -61,4 +61,3 @@ export function DiagnosisInput({ onDiagnose, isLoading }: DiagnosisInputProps) {
     </div>
   );
 }
-

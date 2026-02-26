@@ -70,7 +70,7 @@ export function LoginForm() {
     } catch (e) {
       // CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
       // The current implementation directly displays the error message.
-      // This should be adjusted to be more informational or encouraging.
+      // It should be rephrased to be more informational or encouraging.
       setError(t("login_error_message"));
     } finally {
       setLoading(false);
