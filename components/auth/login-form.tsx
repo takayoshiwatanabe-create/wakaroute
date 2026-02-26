@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react"; // Import signIn from next-auth/react
 import Link from "next/link";
+import { useLocale } from "next-intl"; // Import useLocale
 
 // Assuming shadcn/ui components will be used, but for now, using basic HTML elements with Tailwind classes.
 // Replace with actual shadcn/ui components when available.
@@ -33,6 +34,7 @@ const formSchema = z.object({
 export function LoginForm() {
   const t = useTranslations("login");
   const router = useRouter();
+  const locale = useLocale(); // Get the current locale
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -57,7 +59,7 @@ export function LoginForm() {
       if (result?.error) {
         setError(t("login_error_message"));
       } else {
-        router.push("/"); // Redirect to home on success
+        router.push(`/${locale}/decompose`); // Redirect to decompose page on success
       }
     } catch (e) {
       setError(t("login_error_message"));
@@ -87,10 +89,10 @@ export function LoginForm() {
       <Button type="submit" disabled={loading}>
         {loading ? t("loading_button") : t("login_button")}
       </Button>
-      <Link href="/forgot-password" className="mt-4 block text-blue-500 dark:text-blue-400 text-center">
+      <Link href={`/${locale}/forgot-password`} className="mt-4 block text-blue-500 dark:text-blue-400 text-center">
         {t("forgot_password")}
       </Link>
-      <Link href="/signup" className="mt-2 block text-gray-600 dark:text-gray-400 text-center">
+      <Link href={`/${locale}/signup`} className="mt-2 block text-gray-600 dark:text-gray-400 text-center">
         {t("no_account_yet")} <span className="text-blue-500 dark:text-blue-400">{t("signup_link")}</span>
       </Link>
     </form>

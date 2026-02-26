@@ -10,7 +10,7 @@ const signupSchema = z.object({
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
   confirmPassword: z.string(), // This is refined in the client-side form, but good to have here for server-side validation if needed
   isParent: z.boolean().default(false),
-  childEmail: z.string().email({ message: "Invalid email address." }).optional(),
+  childEmail: z.string().email({ message: "Invalid email address." }).optional().or(z.literal('')), // Allow empty string for optional
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match.",
   path: ["confirmPassword"],

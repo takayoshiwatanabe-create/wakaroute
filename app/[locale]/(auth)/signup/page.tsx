@@ -1,4 +1,4 @@
-// This is a client component, but it's nested under the locale segment
+"use client";
 
 import { SignupForm } from "@/components/auth/signup-form";
 import { useTranslations } from "next-intl";

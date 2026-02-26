@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { signupAction } from "@/app/actions/auth"; // A Next.js Server Action
+import { useLocale } from "next-intl"; // Import useLocale
 
 // Assuming shadcn/ui components will be used, but for now, using basic HTML elements with Tailwind classes.
 // Replace with actual shadcn/ui components when available.
@@ -48,7 +49,7 @@ const formSchema = z.object({
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
   confirmPassword: z.string(),
   isParent: z.boolean().default(false),
-  childEmail: z.string().email({ message: "Invalid email address." }).optional(),
+  childEmail: z.string().email({ message: "Invalid email address." }).optional().or(z.literal('')), // Allow empty string for optional
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match.",
   path: ["confirmPassword"],
@@ -60,6 +61,7 @@ const formSchema = z.object({
 export function SignupForm() {
   const t = useTranslations("signup");
   const router = useRouter();
+  const locale = useLocale(); // Get the current locale
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -80,12 +82,18 @@ export function SignupForm() {
     setLoading(true);
     setError(null);
     try {
-      const result = await signupAction(values); // Call the Server Action
+      // Filter out empty childEmail if not a parent
+      const submissionValues = {
+        ...values,
+        childEmail: values.isParent ? values.childEmail : undefined,
+      };
+
+      const result = await signupAction(submissionValues); // Call the Server Action
       // Note: signupAction should hash the password with bcrypt (cost factor 12 or more)
       if (result?.error) {
         setError(result.error);
       } else {
-        router.push("/login"); // Redirect to login on success
+        router.push(`/${locale}/login`); // Redirect to login on success
       }
     } catch (e) {
       setError(t("signup_error_message"));
@@ -149,7 +157,7 @@ export function SignupForm() {
         {loading ? t("loading_button") : t("signup_button")}
       </Button>
 
-      <Link href="/login" className="mt-4 block text-gray-600 dark:text-gray-400 text-center">
+      <Link href={`/${locale}/login`} className="mt-4 block text-gray-600 dark:text-gray-400 text-center">
         {t("already_have_account")} <span className="text-blue-500 dark:text-blue-400">{t("login_link")}</span>
       </Link>
     </form>

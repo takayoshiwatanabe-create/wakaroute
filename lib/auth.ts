@@ -2,8 +2,8 @@ import NextAuth, { type NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
-import { PrismaAdapter } from "@auth/prisma-adapter"; // Import PrismaAdapter
-import { db } from "@/lib/db"; // Ensure this path is correct for Next.js
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { db } from "@/lib/db";
 
 // Define the user roles as per the project specification (implicit from parent/child logic)
 export type UserRole = "CHILD" | "PARENT";
@@ -20,6 +20,8 @@ declare module "next-auth" {
   }
 
   interface User {
+    id: string; // Add id to User interface
+    email: string; // Add email to User interface
     role: UserRole;
     parentId?: string | null;
   }
