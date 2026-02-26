@@ -25,7 +25,10 @@
     "react": "19.0.0-rc-f994737d14-20240522",
     "react-dom": "19.0.0-rc-f994737d14-20240522",
     "zod": "^3.23.8",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.2",
+    "@google/generative-ai": "^0.14.1",
+    "@upstash/redis": "^1.31.5",
+    "@upstash/ratelimit": "^1.0.1"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.6.0",

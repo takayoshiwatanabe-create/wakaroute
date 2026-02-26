@@ -31,7 +31,7 @@ export async function decomposeAction(formData: FormData) {
   const session = await auth();
 
   if (!session?.user?.id) {
-    return { error: "Authentication required." };
+    return { success: false, message: "Authentication required.", type: "info" };
   }
 
   const userId = session.user.id;
