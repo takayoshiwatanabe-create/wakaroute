@@ -24,9 +24,11 @@ export function AiFeedback({ message, type, className }: AiFeedbackProps) {
       break;
     case "error":
       // Adhering to "ポジティブ・ファースト" - no negative expressions
+      // The spec states "エラーメッセージ・不正解フィードバックは一切ネガティブな表現を使用しない"
+      // So, an "error" type should still be presented positively or neutrally.
       bgColorClass = "bg-yellow-100 dark:bg-yellow-900";
       textColorClass = "text-yellow-800 dark:text-yellow-200";
-      icon = "💡"; // Suggestion/Hint icon instead of error
+      icon = "💡"; // Suggestion/Hint icon instead of error, as per "ポジティブ・ファースト"
       iconColorClass = "text-yellow-500";
       break;
     case "info":

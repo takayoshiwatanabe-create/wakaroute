@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, ChangeEvent } from "react";
 import { useTranslations } from "next-intl";
+import { isRTL } from '@/i18n/utils'; // Import isRTL for layout adjustments
+import { useLocale } from "next-intl";
 
 interface InputAreaProps {
   onDecompose: (input: string, image?: File) => void;
@@ -33,6 +35,8 @@ const Input = ({ className, ...props }: React.InputHTMLAttributes<HTMLInputEleme
 
 export function InputArea({ onDecompose, isLoading }: InputAreaProps) {
   const t = useTranslations("decompose");
+  const locale = useLocale();
+  const rtl = isRTL(locale); // Check if current locale is RTL
   const [textInput, setTextInput] = useState<string>("");
   const [imageFile, setImageFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -71,9 +75,11 @@ export function InputArea({ onDecompose, isLoading }: InputAreaProps) {
         value={textInput}
         onChange={handleTextChange}
         disabled={isLoading}
+        style={{ direction: rtl ? 'rtl' : 'ltr' }} // Apply RTL direction to textarea
       />
 
-      <div className="flex items-center justify-between mb-4">
+      <div className={`flex items-center justify-between mb-4 ${rtl ? 'flex-row-reverse' : ''}`}>
+        {/* The label for the file input should be associated with the hidden input */}
         <Label htmlFor="image-upload" className="text-gray-700 dark:text-gray-300 text-sm">
           {t("image_upload_label")}
         </Label>
@@ -86,6 +92,7 @@ export function InputArea({ onDecompose, isLoading }: InputAreaProps) {
           className="hidden" // Hide default input
           disabled={isLoading}
         />
+        {/* This button acts as a visual trigger for the hidden file input */}
         <Button
           type="button"
           onClick={() => fileInputRef.current?.click()}
@@ -97,14 +104,14 @@ export function InputArea({ onDecompose, isLoading }: InputAreaProps) {
       </div>
 
       {imageFile && (
-        <div className="flex items-center justify-between p-3 mb-4 bg-gray-100 dark:bg-gray-700 rounded-md">
+        <div className={`flex items-center justify-between p-3 mb-4 bg-gray-100 dark:bg-gray-700 rounded-md ${rtl ? 'flex-row-reverse' : ''}`}>
           <span className="text-gray-800 dark:text-gray-200 text-sm truncate">
             {imageFile.name}
           </span>
           <button
             type="button"
             onClick={handleClearImage}
-            className="text-red-500 hover:text-red-600 text-sm ml-4"
+            className={`text-red-500 hover:text-red-600 text-sm ${rtl ? 'mr-4' : 'ml-4'}`}
             disabled={isLoading}
           >
             {t("clear_image_button")}

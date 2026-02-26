@@ -1,0 +1,45 @@
+{
+  "common": {
+    "app_name": "Wakaroute",
+    "app_subtitle": "「わからない」を「わかった！」に変える冒険へ",
+    "login_button": "ログイン",
+    "signup_link": "新規登録"
+  },
+  "login": {
+    "login_welcome": "おかえりなさい！",
+    "email_placeholder": "メールアドレス",
+    "password_placeholder": "パスワード",
+    "login_button": "ログイン",
+    "loading_button": "ログイン中...",
+    "forgot_password": "パスワードを忘れた場合",
+    "no_account_yet": "アカウントをお持ちでないですか？",
+    "signup_link": "新規登録",
+    "login_error_message": "ログインに失敗しました。メールアドレスとパスワードを確認してください。"
+  },
+  "signup": {
+    "signup_welcome": "新しい冒険を始めよう！",
+    "email_placeholder": "メールアドレス",
+    "password_placeholder": "パスワード",
+    "confirm_password_placeholder": "パスワード（確認用）",
+    "signup_is_parent": "保護者として登録する",
+    "signup_child_email_placeholder": "お子様のメールアドレス（保護者の方のみ）",
+    "signup_button": "新規登録",
+    "loading_button": "登録中...",
+    "already_have_account": "すでにアカウントをお持ちですか？",
+    "login_link": "ログイン",
+    "signup_error_message": "登録に失敗しました。入力内容を確認してください。"
+  },
+  "decompose": {
+    "decompose_title": "「わからない」を教えて！",
+    "decompose_subtitle": "テキストや画像をアップロードして、AIがやさしく分解するよ。",
+    "input_placeholder": "ここに「わからないこと」を入力してね。例: 「この漢字の意味は何？」",
+    "image_upload_label": "画像をアップロードする",
+    "select_image_button": "画像を選択",
+    "clear_image_button": "画像をクリア",
+    "decompose_button": "分解する！",
+    "decomposing_button": "分解中...",
+    "decompose_success_message": "素晴らしい！AIが分解を完了したよ。新しい発見があるかな？",
+    "decompose_error_generic": "ごめんね、今は分解できなかったみたい。別の言葉や画像で試してみてね！",
+    "decompose_info_message": "AIが分解を始めるよ。少し待っててね！"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "common": {
+    "app_name": "Wakaroute",
+    "app_subtitle": "Turn 'I don't understand' into 'I got it!'",
+    "login_button": "Login",
+    "signup_link": "Sign Up"
+  },
+  "login": {
+    "login_welcome": "Welcome back!",
+    "email_placeholder": "Email Address",
+    "password_placeholder": "Password",
+    "login_button": "Login",
+    "loading_button": "Logging in...",
+    "forgot_password": "Forgot password?",
+    "no_account_yet": "Don't have an account yet?",
+    "signup_link": "Sign Up",
+    "login_error_message": "Login failed. Please check your email and password."
+  },
+  "signup": {
+    "signup_welcome": "Start a new adventure!",
+    "email_placeholder": "Email Address",
+    "password_placeholder": "Password",
+    "confirm_password_placeholder": "Confirm Password",
+    "signup_is_parent": "Register as a parent",
+    "signup_child_email_placeholder": "Child's email (for parents only)",
+    "signup_button": "Sign Up",
+    "loading_button": "Signing up...",
+    "already_have_account": "Already have an account?",
+    "login_link": "Login",
+    "signup_error_message": "Registration failed. Please check your input."
+  },
+  "decompose": {
+    "decompose_title": "Tell me what you don't understand!",
+    "decompose_subtitle": "Upload text or an image, and AI will gently break it down for you.",
+    "input_placeholder": "Enter what you don't understand here. E.g., \"What does this Kanji mean?\"",
+    "image_upload_label": "Upload an image",
+    "select_image_button": "Select Image",
+    "clear_image_button": "Clear Image",
+    "decompose_button": "Decompose!",
+    "decomposing_button": "Decomposing...",
+    "decompose_success_message": "Great job! AI has finished decomposing. Ready for new discoveries?",
+    "decompose_error_generic": "Oops, it seems I couldn't decompose that this time. Please try with different words or an image!",
+    "decompose_info_message": "AI is starting the decomposition. Please wait a moment!"
+  }
+}
