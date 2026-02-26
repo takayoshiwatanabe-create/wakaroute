@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
+import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory, Part } from "@google/generative-ai";
 
 // Ensure GOOGLE_GEMINI_API_KEY is set in environment variables
 const geminiApiKey = process.env.GOOGLE_GEMINI_API_KEY;
@@ -34,7 +34,7 @@ const model = genAI.getGenerativeModel({
 });
 
 // Helper function to convert File to GoogleGenerativeAI.Part
-async function fileToGenerativePart(file: File) {
+async function fileToGenerativePart(file: File): Promise<Part> {
   const base64EncodedDataPromise = new Promise<string>((resolve) => {
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -71,7 +71,7 @@ export async function generateDecomposition(
     return { error: "Either text or an image must be provided for decomposition." };
   }
 
-  const parts: (string | { inlineData: { data: string; mimeType: string } })[] = [];
+  const parts: Part[] = [];
 
   // Construct the prompt based on available input
   // CLAUDE.md Section 1.1: コアミッション「わからない」を恥にしない。戻ることを前進に変える。
@@ -79,9 +79,9 @@ export async function generateDecomposition(
   let prompt = "以下の内容について、子どもにもわかるように、ポジティブな言葉で、スモールステップで分解して説明してください。難しい言葉は使わず、比喩や具体例を交えてください。答えは「提案」として提示し、断定的な表現は避けてください。";
 
   if (textInput) {
-    parts.push(prompt + `\n\n内容: ${textInput}`);
+    parts.push({ text: prompt + `\n\n内容: ${textInput}` });
   } else {
-    parts.push(prompt);
+    parts.push({ text: prompt });
   }
 
   if (imageFile) {
@@ -97,7 +97,7 @@ export async function generateDecomposition(
   try {
     // CLAUDE.md Section 2.3: AIリクエストはServer-side専用エンドポイント経由
     const result = await model.generateContent({
-      contents: [{ role: "user", parts: parts }], // Cast parts to the correct type
+      contents: [{ role: "user", parts: parts }],
     });
 
     const response = result.response;

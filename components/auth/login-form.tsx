@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react"; // Import signIn from next-auth/react
 import Link from "next/link";
 import { useLocale } from "next-intl"; // Import useLocale
+import { isRTL } from '@/i18n/utils'; // Import isRTL for layout adjustments
 
 // Assuming shadcn/ui components will be used, but for now, using basic HTML elements with Tailwind classes.
 // Replace with actual shadcn/ui components when available.
@@ -35,6 +36,7 @@ export function LoginForm() {
   const t = useTranslations("login");
   const router = useRouter();
   const locale = useLocale(); // Get the current locale
+  const rtl = isRTL(locale); // Check if current locale is RTL
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -57,11 +59,17 @@ export function LoginForm() {
       });
 
       if (result?.error) {
+        // CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
+        // This is a deviation. The error message is currently directly displayed.
+        // It should be rephrased to be more encouraging or informational.
         setError(t("login_error_message"));
       } else {
         router.push(`/${locale}/decompose`); // Redirect to decompose page on success
       }
     } catch (e) {
+      // CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
+      // This is a deviation. The error message is currently directly displayed.
+      // It should be rephrased to be more encouraging or informational.
       setError(t("login_error_message"));
     } finally {
       setLoading(false);
@@ -69,30 +77,32 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-md p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-      {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-md p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
+      {error && <p className="text-red-500 text-center mb-4" style={{ direction: rtl ? 'rtl' : 'ltr' }}>{error}</p>}
       <Input
         {...form.register("email")}
         type="email"
         placeholder={t("email_placeholder")}
         disabled={loading}
+        style={{ direction: rtl ? 'rtl' : 'ltr', textAlign: rtl ? 'right' : 'left' }}
       />
-      {form.formState.errors.email && <p className="text-red-500 text-sm mb-2">{form.formState.errors.email.message}</p>}
+      {form.formState.errors.email && <p className="text-red-500 text-sm mb-2" style={{ textAlign: rtl ? 'right' : 'left' }}>{form.formState.errors.email.message}</p>}
       <Input
         {...form.register("password")}
         type="password"
         placeholder={t("password_placeholder")}
         className="mb-6" // Adjusted margin for consistency
         disabled={loading}
+        style={{ direction: rtl ? 'rtl' : 'ltr', textAlign: rtl ? 'right' : 'left' }}
       />
-      {form.formState.errors.password && <p className="text-red-500 text-sm mb-2">{form.formState.errors.password.message}</p>}
+      {form.formState.errors.password && <p className="text-red-500 text-sm mb-2" style={{ textAlign: rtl ? 'right' : 'left' }}>{form.formState.errors.password.message}</p>}
       <Button type="submit" disabled={loading}>
         {loading ? t("loading_button") : t("login_button")}
       </Button>
-      <Link href={`/${locale}/forgot-password`} className="mt-4 block text-blue-500 dark:text-blue-400 text-center">
+      <Link href={`/${locale}/forgot-password`} className="mt-4 block text-blue-500 dark:text-blue-400 text-center" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
         {t("forgot_password")}
       </Link>
-      <Link href={`/${locale}/signup`} className="mt-2 block text-gray-600 dark:text-gray-400 text-center">
+      <Link href={`/${locale}/signup`} className="mt-2 block text-gray-600 dark:text-gray-400 text-center" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
         {t("no_account_yet")} <span className="text-blue-500 dark:text-blue-400">{t("signup_link")}</span>
       </Link>
     </form>

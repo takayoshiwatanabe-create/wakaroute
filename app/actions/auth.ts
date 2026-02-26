@@ -20,7 +20,7 @@ const signupSchema = z.object({
   path: ["childEmail"],
 });
 
-export async function signupAction(values: z.infer<typeof signupSchema>) {
+export async function signupAction(values: z.infer<typeof signupSchema>): Promise<{ success?: string; error?: string }> {
   const validatedFields = signupSchema.safeParse(values);
 
   if (!validatedFields.success) {

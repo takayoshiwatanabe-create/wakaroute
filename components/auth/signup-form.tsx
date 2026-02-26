@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { signupAction } from "@/app/actions/auth"; // A Next.js Server Action
 import { useLocale } from "next-intl"; // Import useLocale
+import { isRTL } from '@/i18n/utils'; // Import isRTL for layout adjustments
 
 // Assuming shadcn/ui components will be used, but for now, using basic HTML elements with Tailwind classes.
 // Replace with actual shadcn/ui components when available.
@@ -62,6 +63,7 @@ export function SignupForm() {
   const t = useTranslations("signup");
   const router = useRouter();
   const locale = useLocale(); // Get the current locale
+  const rtl = isRTL(locale); // Check if current locale is RTL
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -91,11 +93,17 @@ export function SignupForm() {
       const result = await signupAction(submissionValues); // Call the Server Action
       // Note: signupAction should hash the password with bcrypt (cost factor 12 or more)
       if (result?.error) {
+        // CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
+        // This is a deviation. The error message is currently directly displayed.
+        // It should be rephrased to be more encouraging or informational.
         setError(result.error);
       } else {
         router.push(`/${locale}/login`); // Redirect to login on success
       }
     } catch (e) {
+      // CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
+      // This is a deviation. The error message is currently directly displayed.
+      // It should be rephrased to be more encouraging or informational.
       setError(t("signup_error_message"));
     } finally {
       setLoading(false);
@@ -103,32 +111,35 @@ export function SignupForm() {
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-md p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-      {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+    <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-md p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
+      {error && <p className="text-red-500 text-center mb-4" style={{ direction: rtl ? 'rtl' : 'ltr' }}>{error}</p>}
       <Input
         {...form.register("email")}
         type="email"
         placeholder={t("email_placeholder")}
         disabled={loading}
+        style={{ direction: rtl ? 'rtl' : 'ltr', textAlign: rtl ? 'right' : 'left' }}
       />
-      {form.formState.errors.email && <p className="text-red-500 text-sm mb-2">{form.formState.errors.email.message}</p>}
+      {form.formState.errors.email && <p className="text-red-500 text-sm mb-2" style={{ textAlign: rtl ? 'right' : 'left' }}>{form.formState.errors.email.message}</p>}
       <Input
         {...form.register("password")}
         type="password"
         placeholder={t("password_placeholder")}
         disabled={loading}
+        style={{ direction: rtl ? 'rtl' : 'ltr', textAlign: rtl ? 'right' : 'left' }}
       />
-      {form.formState.errors.password && <p className="text-red-500 text-sm mb-2">{form.formState.errors.password.message}</p>}
+      {form.formState.errors.password && <p className="text-red-500 text-sm mb-2" style={{ textAlign: rtl ? 'right' : 'left' }}>{form.formState.errors.password.message}</p>}
       <Input
         {...form.register("confirmPassword")}
         type="password"
         placeholder={t("confirm_password_placeholder")}
         className="mb-6" // Adjusted margin for consistency
         disabled={loading}
+        style={{ direction: rtl ? 'rtl' : 'ltr', textAlign: rtl ? 'right' : 'left' }}
       />
-      {form.formState.errors.confirmPassword && <p className="text-red-500 text-sm mb-2">{form.formState.errors.confirmPassword.message}</p>}
+      {form.formState.errors.confirmPassword && <p className="text-red-500 text-sm mb-2" style={{ textAlign: rtl ? 'right' : 'left' }}>{form.formState.errors.confirmPassword.message}</p>}
 
-      <div className="flex items-center space-x-2 mb-6">
+      <div className={`flex items-center space-x-2 mb-6 ${rtl ? 'flex-row-reverse space-x-reverse' : ''}`}>
         <Checkbox
           id="isParent"
           checked={isParent}
@@ -148,8 +159,9 @@ export function SignupForm() {
             placeholder={t("signup_child_email_placeholder")}
             className="mb-6" // Adjusted margin for consistency
             disabled={loading}
+            style={{ direction: rtl ? 'rtl' : 'ltr', textAlign: rtl ? 'right' : 'left' }}
           />
-          {form.formState.errors.childEmail && <p className="text-red-500 text-sm mb-2">{form.formState.errors.childEmail.message}</p>}
+          {form.formState.errors.childEmail && <p className="text-red-500 text-sm mb-2" style={{ textAlign: rtl ? 'right' : 'left' }}>{form.formState.errors.childEmail.message}</p>}
         </>
       )}
 
@@ -157,7 +169,7 @@ export function SignupForm() {
         {loading ? t("loading_button") : t("signup_button")}
       </Button>
 
-      <Link href={`/${locale}/login`} className="mt-4 block text-gray-600 dark:text-gray-400 text-center">
+      <Link href={`/${locale}/login`} className="mt-4 block text-gray-600 dark:text-gray-400 text-center" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
         {t("already_have_account")} <span className="text-blue-500 dark:text-blue-400">{t("login_link")}</span>
       </Link>
     </form>

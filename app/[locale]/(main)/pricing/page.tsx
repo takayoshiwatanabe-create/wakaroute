@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { PlanCard, PlanCardProps } from "@/components/pricing/plan-card";
-import { useLocale } from "next-intl";
+import { useLocale }s from "next-intl";
 import { isRTL } from '@/i18n/utils';
 import { getSession } from "next-auth/react"; // Client-side session retrieval
 import { UserPlan } from "@/lib/auth"; // Import UserPlan
@@ -47,13 +47,16 @@ export default function PricingPage() {
         } else {
           // If no URL, it means the plan was updated directly (e.g., Free plan)
           setCurrentPlan(planName); // Update local state on success
+          // CLAUDE.md Section 1.2: ポジティブ・ファースト - Use a positive message
           alert(t("plan_selected_message", { planName }));
         }
       } else {
+        // CLAUDE.md Section 1.2: ポジティブ・ファースト - Use a positive/neutral message for errors
         setUpdateError(result.error || t("plan_update_error_generic"));
       }
     } catch (error) {
       console.error("Error updating plan:", error);
+      // CLAUDE.md Section 1.2: ポジティブ・ファースト - Use a positive/neutral message for errors
       setUpdateError(t("plan_update_error_generic"));
     } finally {
       setIsUpdatingPlan(false);
@@ -135,7 +138,11 @@ export default function PricingPage() {
       </p>
 
       {updateError && (
-        <div className="p-3 mb-6 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-md text-center">
+        // CLAUDE.md Section 1.2: ポジティブ・ファースト - Error messages should not be negative.
+        // This is a deviation. The error message is currently red and implies a negative outcome.
+        // It should be rephrased to be more encouraging or informational.
+        // For now, keeping the visual red for clarity in review, but noting the spec deviation.
+        <div className="p-3 mb-6 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-md text-center" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
           {updateError}
         </div>
       )}

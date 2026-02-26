@@ -4,13 +4,14 @@ import React from "react";
 import { useTranslations } from "next-intl";
 import { isRTL } from '@/i18n/utils';
 import { useLocale } from "next-intl";
+import { UserPlan } from "@/lib/auth"; // Import UserPlan
 
 export interface PlanCardProps {
   planName: string;
   price: string;
   features: string[];
   isCurrentPlan: boolean;
-  onSelectPlan: (planName: any) => void; // Changed type to any to match the usage in page.tsx
+  onSelectPlan: (planName: UserPlan) => void; // Changed type to UserPlan
   buttonText: string;
   isRecommended?: boolean;
   disabled?: boolean;
@@ -67,7 +68,7 @@ export function PlanCard({
         ))}
       </ul>
       <button
-        onClick={() => onSelectPlan(planName)}
+        onClick={() => onSelectPlan(planName as UserPlan)} // Cast planName to UserPlan
         className={buttonClasses}
         disabled={isCurrentPlan || disabled}
       >

@@ -28,7 +28,7 @@ const ratelimit = new Ratelimit({
   // get_current_time: () => Date.now(),
 });
 
-export async function decomposeAction(formData: FormData) {
+export async function decomposeAction(formData: FormData): Promise<{ success: boolean; message: string; type: "success" | "info"; rateLimit?: { limit: number; reset: number; remaining: number } }> {
   const session = await auth();
 
   if (!session?.user?.id) {
@@ -108,7 +108,7 @@ export async function decomposeAction(formData: FormData) {
 
     return {
       success: true,
-      message: result.decomposition,
+      message: result.decomposition!, // We know decomposition exists if no error
       type: "success",
     };
   } catch (e) {

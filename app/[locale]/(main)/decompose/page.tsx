@@ -5,9 +5,13 @@ import { useTranslations } from "next-intl";
 import { InputArea } from "@/components/decompose/input-area";
 import { AiFeedback } from "@/components/decompose/ai-feedback";
 import { decomposeAction } from "@/app/(main)/decompose/actions"; // Import the server action
+import { useLocale } from "next-intl";
+import { isRTL } from '@/i18n/utils';
 
 export default function DecomposePage() {
   const t = useTranslations("decompose");
+  const locale = useLocale();
+  const rtl = isRTL(locale);
   const [isLoading, setIsLoading] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
   const [feedbackType, setFeedbackType] = useState<"success" | "info" | null>(null); // Removed 'error' type as per positive-first
@@ -47,10 +51,10 @@ export default function DecomposePage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-white dark:bg-gray-900">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
         {t("decompose_title")}
       </h1>
-      <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 text-center max-w-prose">
+      <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 text-center max-w-prose" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
         {t("decompose_subtitle")}
       </p>
 
