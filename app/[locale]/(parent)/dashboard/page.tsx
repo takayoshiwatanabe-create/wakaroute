@@ -13,7 +13,7 @@ interface ChildProgress {
   name: string;
   aiDecompositionsUsed: number;
   aiDecompositionsLimit: number;
-  lastActivity: string; // This would ideally be a Date and formatted on client
+  lastActivity: "activity_today" | "activity_yesterday" | "activity_two_days_ago"; // Specific keys for translation
   recentDiscoveries: number;
 }
 
@@ -38,10 +38,11 @@ export default function ParentDashboardPage() {
         } else if (result.children) {
           setChildrenProgress(result.children.map(child => ({
             id: child.id,
-            name: child.email.split('@')[0], // Simple name extraction
+            name: child.email.split('@')[0], // Simple name extraction. In a real app, child would have a name field.
             aiDecompositionsUsed: child.monthlyAiDecompositions,
-            aiDecompositionsLimit: child.plan === 'Free' ? 5 : 999, // Based on plan from CLAUDE.md
-            lastActivity: child.lastActivity,
+            // Determine AI decomposition limit based on the plan as per CLAUDE.md Section 5.1
+            aiDecompositionsLimit: child.plan === 'Free' ? 5 : Infinity, // Premium/Family/School have unlimited
+            lastActivity: child.lastActivity as "activity_today" | "activity_yesterday" | "activity_two_days_ago", // Cast to specific type
             recentDiscoveries: child.recentDiscoveries,
           })));
         }
@@ -92,7 +93,7 @@ export default function ParentDashboardPage() {
               childName={child.name}
               aiDecompositionsUsed={child.aiDecompositionsUsed}
               aiDecompositionsLimit={child.aiDecompositionsLimit}
-              lastActivity={t(child.lastActivity as "activity_today" | "activity_yesterday" | "activity_two_days_ago")} // Translate activity string
+              lastActivity={child.lastActivity} // Pass the specific key
               recentDiscoveries={child.recentDiscoveries}
               className="w-full"
             />

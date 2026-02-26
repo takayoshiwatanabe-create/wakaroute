@@ -90,15 +90,6 @@ export function InputArea({ onDecompose, isLoading }: InputAreaProps) {
         <Label htmlFor="image-upload" className="text-gray-700 dark:text-gray-300 text-sm">
           {t("image_upload_label")}
         </Label>
-        <Input
-          id="image-upload"
-          type="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          ref={fileInputRef}
-          className="hidden" // Hide the default file input
-          disabled={isLoading}
-        />
         <Button
           type="button"
           onClick={() => fileInputRef.current?.click()}
@@ -131,4 +122,3 @@ export function InputArea({ onDecompose, isLoading }: InputAreaProps) {
     </div>
   );
 }
-

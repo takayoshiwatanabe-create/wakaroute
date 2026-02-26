@@ -21,6 +21,7 @@ export async function getChildrenProgressAction(): Promise<{ children?: ChildDat
     return { error: "Authentication required." };
   }
 
+  // Check if the user is a parent, as per CLAUDE.md "保護者は「観察者」" and "保護者UIは子どもの「失敗」ではなく「発見」を伝える設計にする"
   if (session.user.role !== "PARENT") {
     return { error: "Access denied. Only parent accounts can view this dashboard." };
   }

@@ -69,6 +69,36 @@
     "activity_two_days_ago": "2 days ago",
     "loading_children_progress": "Loading children's progress...",
     "no_children_registered": "No children registered yet. Please ensure your children's accounts are linked."
+  },
+  "pricing": {
+    "pricing_title": "Choose Your Plan",
+    "pricing_subtitle": "Find the perfect plan to fit your learning needs.",
+    "free_plan_name": "Free",
+    "free_price": "$0",
+    "free_feature_1": "AI Decomposition: Up to 5 times/month",
+    "free_feature_2": "Unlimited Reverse Diagnosis",
+    "free_feature_3": "Languages: Japanese & English only",
+    "free_feature_4": "No Parent Linkage",
+    "premium_plan_name": "Premium",
+    "premium_price": "$9.99 / month",
+    "premium_feature_1": "Unlimited AI Decomposition",
+    "premium_feature_2": "All Languages Supported",
+    "premium_feature_3": "Full Parent Linkage Features",
+    "premium_feature_4": "Learning Report PDF Export",
+    "family_plan_name": "Family",
+    "family_price": "$19.99 / month",
+    "family_feature_1": "All Premium Features + Up to 5 Children",
+    "family_feature_2": "No progress comparison between siblings",
+    "school_plan_name": "School",
+    "school_price": "Contact Us",
+    "school_feature_1": "Classroom-level Management",
+    "school_feature_2": "LMS Integration API",
+    "school_feature_3": "Custom Branding",
+    "select_button": "Select Plan",
+    "contact_us_button": "Contact Us",
+    "current_plan_button": "Current Plan",
+    "recommended_badge": "Recommended",
+    "plan_selected_message": "Plan {planName} selected.",
+    "loading_plans": "Loading pricing plans..."
   }
 }
-

@@ -1,6 +1,5 @@
 import NextAuth, { DefaultSession } from "next-auth";
-import { JWT } from "next-auth/jwt";
-import { UserRole, UserPlan } from "@/lib/auth"; // Import your custom types
+import { UserRole, UserPlan } from "./lib/auth"; // Adjust path as necessary
 
 declare module "next-auth" {
   /**
@@ -9,32 +8,24 @@ declare module "next-auth" {
   interface Session {
     user: {
       id: string;
-      email: string;
-      role: UserRole;
-      parentId: string | null;
-      plan: UserPlan;
+      role?: UserRole;
+      parentId?: string | null;
+      plan?: UserPlan;
     } & DefaultSession["user"];
   }
 
   interface User {
-    id: string;
-    email: string;
-    role: UserRole;
-    parentId: string | null;
-    plan: UserPlan;
+    role?: UserRole;
+    parentId?: string | null;
+    plan?: UserPlan;
   }
 }
 
-declare module "next-auth/jwt" {
-  /**
-   * Returned by the `jwt` callback and `getToken`, when using JWT sessions
-   */
+declare module "@auth/core/jwt" {
   interface JWT {
-    id: string;
-    email: string;
-    role: UserRole;
-    parentId: string | null;
-    plan: UserPlan;
+    id?: string;
+    role?: UserRole;
+    parentId?: string | null;
+    plan?: UserPlan;
   }
 }
-

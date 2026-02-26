@@ -58,6 +58,7 @@
     "dashboard_subtitle": "راقب تقدم تعلم طفلك كـ 'اكتشافات'. لا يتم عرض معلومات شخصية مفصلة.",
     "ai_decomposition_usage": "استخدام تفكيك الذكاء الاصطناعي",
     "usage_count": "{used} مرة / {limit} مرة",
+    "unlimited": "غير محدود",
     "last_activity": "آخر نشاط",
     "recent_discoveries": "عدد لحظات 'فهمت!' الأخيرة",
     "discoveries_count": "{count} اكتشافات",
@@ -99,6 +100,7 @@
     "current_plan_button": "الخطة الحالية",
     "recommended_badge": "موصى به",
     "plan_selected_message": "تم تحديد الخطة {planName}.",
-    "loading_plans": "جارٍ تحميل خطط التسعير..."
+    "loading_plans": "جارٍ تحميل خطط التسعير...",
+    "plan_update_error_generic": "فشل تحديث الخطة. يرجى المحاولة مرة أخرى."
   }
 }

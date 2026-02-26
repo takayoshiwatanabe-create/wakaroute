@@ -5,16 +5,19 @@ import { useTranslations } from "next-intl";
 import { PlanCard, PlanCardProps } from "@/components/pricing/plan-card";
 import { useLocale } from "next-intl";
 import { isRTL } from '@/i18n/utils';
-import { auth } from "@/lib/auth"; // Import auth to get session data
 import { getSession } from "next-auth/react"; // Client-side session retrieval
+import { UserPlan } from "@/lib/auth"; // Import UserPlan
+import { updatePlanAction } from "./actions"; // Import the server action for updating plan
 
 export default function PricingPage() {
   const t = useTranslations("pricing");
   const locale = useLocale();
   const rtl = isRTL(locale);
 
-  const [currentPlan, setCurrentPlan] = useState<string>("Free"); // Default to Free
+  const [currentPlan, setCurrentPlan] = useState<UserPlan>("Free"); // Default to Free
   const [loadingSession, setLoadingSession] = useState(true);
+  const [isUpdatingPlan, setIsUpdatingPlan] = useState(false);
+  const [updateError, setUpdateError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -28,12 +31,30 @@ export default function PricingPage() {
     fetchSession();
   }, []);
 
-  const handleSelectPlan = (planName: string) => {
-    // In a real application, this would trigger a payment flow or plan upgrade action
-    console.log(`Selected plan: ${planName}`);
-    // For demonstration, we'll just update the current plan
-    setCurrentPlan(planName);
-    alert(t("plan_selected_message", { planName }));
+  const handleSelectPlan = async (planName: UserPlan) => {
+    if (isUpdatingPlan) return;
+
+    setIsUpdatingPlan(true);
+    setUpdateError(null);
+
+    try {
+      // Call the server action to update the user's plan
+      const result = await updatePlanAction(planName);
+
+      if (result.success) {
+        setCurrentPlan(planName); // Update local state on success
+        alert(t("plan_selected_message", { planName }));
+        // Optionally, re-fetch session to ensure client-side state is fully synchronized
+        // await getSession({ force: true });
+      } else {
+        setUpdateError(result.error || t("plan_update_error_generic"));
+      }
+    } catch (error) {
+      console.error("Error updating plan:", error);
+      setUpdateError(t("plan_update_error_generic"));
+    } finally {
+      setIsUpdatingPlan(false);
+    }
   };
 
   const plans: PlanCardProps[] = [
@@ -47,8 +68,9 @@ export default function PricingPage() {
         t("free_feature_4"),
       ],
       isCurrentPlan: currentPlan === "Free",
-      onSelectPlan: handleSelectPlan,
+      onSelectPlan: () => handleSelectPlan("Free"),
       buttonText: t("select_button"),
+      disabled: isUpdatingPlan,
     },
     {
       planName: t("premium_plan_name"),
@@ -60,9 +82,10 @@ export default function PricingPage() {
         t("premium_feature_4"),
       ],
       isCurrentPlan: currentPlan === "Premium",
-      onSelectPlan: handleSelectPlan,
+      onSelectPlan: () => handleSelectPlan("Premium"),
       buttonText: t("select_button"),
       isRecommended: true,
+      disabled: isUpdatingPlan,
     },
     {
       planName: t("family_plan_name"),
@@ -72,8 +95,9 @@ export default function PricingPage() {
         t("family_feature_2"),
       ],
       isCurrentPlan: currentPlan === "Family",
-      onSelectPlan: handleSelectPlan,
+      onSelectPlan: () => handleSelectPlan("Family"),
       buttonText: t("select_button"),
+      disabled: isUpdatingPlan,
     },
     {
       planName: t("school_plan_name"),
@@ -84,9 +108,9 @@ export default function PricingPage() {
         t("school_feature_3"),
       ],
       isCurrentPlan: currentPlan === "School",
-      onSelectPlan: handleSelectPlan,
+      onSelectPlan: () => handleSelectPlan("School"),
       buttonText: t("contact_us_button"),
-      disabled: true, // School plan typically requires custom setup
+      disabled: true || isUpdatingPlan, // School plan typically requires custom setup and should be disabled for direct selection
     },
   ];
 
@@ -106,6 +130,12 @@ export default function PricingPage() {
       <p className="text-lg text-gray-600 dark:text-gray-400 mb-10 text-center max-w-prose" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
         {t("pricing_subtitle")}
       </p>
+
+      {updateError && (
+        <div className="p-3 mb-6 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-md text-center">
+          {updateError}
+        </div>
+      )}
 
       <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 w-full max-w-7xl ${rtl ? 'rtl' : ''}`}>
         {plans.map((plan) => (

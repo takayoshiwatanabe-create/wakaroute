@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import { getMessages } from 'next-intl/server';
 import { isRTL } from '@/i18n/utils'; // Import isRTL from the new utility file
+import { SessionProvider } from 'next-auth/react'; // Import SessionProvider
 
 // Import global CSS (Tailwind)
 import '../../global.css';
@@ -19,7 +20,7 @@ interface RootLayoutProps {
 
 export default async function LocaleLayout({ children, params: { locale } }: RootLayoutProps) {
   // Validate that the incoming `locale` parameter is a valid locale
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   // Get messages for the current locale
   const messages = await getMessages({ locale }); // Pass locale to getMessages
@@ -30,11 +31,12 @@ export default async function LocaleLayout({ children, params: { locale } }: Roo
   return (
     <html lang={locale} dir={rtl ? 'rtl' : 'ltr'}>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}> {/* messages prop is enough, locale is implicitly available */}
-          {children}
-        </NextIntlClientProvider>
+        <SessionProvider> {/* Wrap children with SessionProvider */}
+          <NextIntlClientProvider messages={messages}> {/* messages prop is enough, locale is implicitly available */}
+            {children}
+          </NextIntlClientProvider>
+        </SessionProvider>
       </body>
     </html>
   );
 }
-

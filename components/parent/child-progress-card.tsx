@@ -26,7 +26,9 @@ export function ChildProgressCard({
   const locale = useLocale();
   const rtl = isRTL(locale);
 
-  const progressPercentage = (aiDecompositionsUsed / aiDecompositionsLimit) * 100;
+  // Handle Infinity for aiDecompositionsLimit for Premium/Family/School plans
+  const displayLimit = aiDecompositionsLimit === Infinity ? t("unlimited") : aiDecompositionsLimit;
+  const progressPercentage = aiDecompositionsLimit === Infinity ? 0 : (aiDecompositionsUsed / aiDecompositionsLimit) * 100;
   const progressColor = progressPercentage > 80 ? "bg-red-500" : progressPercentage > 50 ? "bg-yellow-500" : "bg-green-500";
 
   return (
@@ -49,12 +51,12 @@ export function ChildProgressCard({
             role="progressbar"
             aria-valuenow={aiDecompositionsUsed}
             aria-valuemin={0}
-            aria-valuemax={aiDecompositionsLimit}
+            aria-valuemax={aiDecompositionsLimit === Infinity ? 100 : aiDecompositionsLimit} // Max for aria-valuemax should be a number
             aria-label={`${childName}'s AI decomposition usage`}
           ></div>
         </div>
         <p className="text-right text-gray-600 dark:text-gray-400 text-xs mt-1" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
-          {t("usage_count", { used: aiDecompositionsUsed, limit: aiDecompositionsLimit })}
+          {t("usage_count", { used: aiDecompositionsUsed, limit: displayLimit })}
         </p>
       </div>
 

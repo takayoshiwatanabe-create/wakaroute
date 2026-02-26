@@ -5,6 +5,7 @@ import { z } from "zod";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
 import type { JWT } from "@auth/core/jwt"; // Corrected import for JWT type extension
+import type { Session, User } from "next-auth"; // Import Session and User types
 
 // Define the user roles as per the project specification (implicit from parent/child logic)
 export type UserRole = "CHILD" | "PARENT";
@@ -123,5 +124,3 @@ export const {
   // To enforce the spec's "アクセストークン15分、リフレッシュトークン7日",
   // custom JWT and session callbacks would be needed to manage token expiry explicitly.
 });
-
-

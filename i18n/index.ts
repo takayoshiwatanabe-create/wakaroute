@@ -5,7 +5,7 @@ import { isRTL } from './utils'; // Import isRTL from the new utility file
 const locales = ['ja', 'en', 'zh', 'ko', 'es', 'fr', 'de', 'pt', 'ar', 'hi'];
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: (await import(`./messages/${locale}.json`)).default,
@@ -16,4 +16,3 @@ export default getRequestConfig(async ({ locale }) => {
     // Other configurations can go here
   };
 });
-
