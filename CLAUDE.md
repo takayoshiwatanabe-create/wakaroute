@@ -253,3 +253,4 @@ N/A
 - RTL support required for Arabic (ar)
 - Use isRTL flag from i18n module for layout adjustments
 
+

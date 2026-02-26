@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import { t } from "@/i18n";
-import { Link } from "expo-router"; // Import Link for navigation
+import { Link } from "expo-router";
 
 export function LoginForm() {
   const [email, setEmail] = useState<string>("");
@@ -60,7 +60,7 @@ export function LoginForm() {
           </Text>
         </TouchableOpacity>
       </Link>
-      <Link href="/(auth)/signup" asChild>
+      <Link href="/(auth)/signup/page" asChild>
         <TouchableOpacity className="mt-2">
           <Text className="text-gray-600 dark:text-gray-400 text-center">
             {t("no_account_yet")} <Text className="text-blue-500 dark:text-blue-400">{t("signup_link")}</Text>
