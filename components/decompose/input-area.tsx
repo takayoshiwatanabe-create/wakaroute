@@ -6,7 +6,7 @@ import { isRTL } from '@/i18n/utils'; // Import isRTL for layout adjustments
 import { useLocale } from "next-intl";
 
 interface InputAreaProps {
-  onDecompose: (input: string, image?: File) => void;
+  onDecompose: (textInput: string, imageFile?: File) => void;
   isLoading: boolean;
 }
 
@@ -31,6 +31,13 @@ const Input = ({ className, ...props }: React.InputHTMLAttributes<HTMLInputEleme
     className={`w-full p-3 mb-4 border border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700 ${className}`}
     {...props}
   />
+);
+
+// Basic Label component
+const Label = ({ htmlFor, className, children }: React.LabelHTMLAttributes<HTMLLabelElement>) => (
+  <label htmlFor={htmlFor} className={`text-gray-900 dark:text-white text-base ${className}`}>
+    {children}
+  </label>
 );
 
 export function InputArea({ onDecompose, isLoading }: InputAreaProps) {
@@ -125,10 +132,3 @@ export function InputArea({ onDecompose, isLoading }: InputAreaProps) {
     </div>
   );
 }
-
-// Basic Label component
-const Label = ({ htmlFor, className, children }: React.LabelHTMLAttributes<HTMLLabelElement>) => (
-  <label htmlFor={htmlFor} className={`text-gray-900 dark:text-white text-base ${className}`}>
-    {children}
-  </label>
-);

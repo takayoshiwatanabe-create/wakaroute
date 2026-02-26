@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "i18n/messages/*.json", "i18n/index.ts", "global.d.ts", "components/decompose/input-area.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "i18n/messages/*.json", "i18n/index.ts", "global.d.ts", "prisma/generated/client.d.ts"],
   "exclude": ["node_modules"]
 }

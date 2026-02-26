@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { InputArea } from "@/components/decompose/input-area";
 import { AiFeedback } from "@/components/decompose/ai-feedback";
+import { decomposeAction } from "@/app/(main)/decompose/actions"; // Import the server action
 
 export default function DecomposePage() {
   const t = useTranslations("decompose");
@@ -11,25 +12,37 @@ export default function DecomposePage() {
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
   const [feedbackType, setFeedbackType] = useState<"success" | "error" | "info" | null>(null);
 
-  const handleDecompose = async (input: string, image?: File) => {
+  const handleDecompose = async (textInput: string, imageFile?: File) => {
     setIsLoading(true);
     setFeedbackMessage(null);
     setFeedbackType(null);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    // In a real scenario, you'd send `input` and `image` to a server action/API route
-    // and handle the AI response.
-    // For now, simulate a success or error based on input.
-    if (input.toLowerCase().includes("error")) {
-      setFeedbackMessage(t("decompose_error_generic"));
-      setFeedbackType("error");
-    } else {
-      setFeedbackMessage(t("decompose_success_message"));
-      setFeedbackType("success");
+    const formData = new FormData();
+    if (textInput) {
+      formData.append("textInput", textInput);
     }
-    setIsLoading(false);
+    if (imageFile) {
+      formData.append("imageFile", imageFile);
+    }
+
+    try {
+      const result = await decomposeAction(formData);
+
+      if (result.success) {
+        setFeedbackMessage(result.message);
+        setFeedbackType("success");
+      } else {
+        // Even for errors, we display a positive/neutral message as per "ポジティブ・ファースト"
+        setFeedbackMessage(result.message || t("decompose_error_generic"));
+        setFeedbackType(result.type || "info"); // Use 'info' as a fallback for error type
+      }
+    } catch (error) {
+      console.error("Error calling decompose action:", error);
+      setFeedbackMessage(t("decompose_error_generic"));
+      setFeedbackType("info"); // Still info, not 'error' type for display
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -52,3 +65,4 @@ export default function DecomposePage() {
     </div>
   );
 }
+

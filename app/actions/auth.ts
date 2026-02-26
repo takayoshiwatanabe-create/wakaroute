@@ -58,6 +58,10 @@ export async function signupAction(values: z.infer<typeof signupSchema>) {
         passwordHash: hashedPassword,
         role,
         parentId, // Will be null for parents, or the parent's ID for children
+        // Initialize monthlyAiDecompositions for new users
+        monthlyAiDecompositions: 0,
+        // Set default plan
+        plan: 'Free',
       },
     });
     return { success: "User registered successfully!" };
@@ -66,3 +70,4 @@ export async function signupAction(values: z.infer<typeof signupSchema>) {
     return { error: "Failed to register user." };
   }
 }
+

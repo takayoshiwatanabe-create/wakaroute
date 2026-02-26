@@ -4,9 +4,12 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
+import { AdapterUser } from "next-auth/adapters"; // Import AdapterUser
+import type { JWT } from "next-auth/jwt"; // Import JWT type
 
 // Define the user roles as per the project specification (implicit from parent/child logic)
 export type UserRole = "CHILD" | "PARENT";
+export type UserPlan = "Free" | "Premium" | "Family" | "School"; // Define UserPlan type
 
 // Extend the NextAuth session and user types to include custom fields
 declare module "next-auth" {
@@ -16,6 +19,7 @@ declare module "next-auth" {
       email: string;
       role: UserRole;
       parentId?: string | null;
+      plan: UserPlan; // Add plan to session user
     } & Session["user"];
   }
 
@@ -24,6 +28,18 @@ declare module "next-auth" {
     email: string; // Add email to User interface
     role: UserRole;
     parentId?: string | null;
+    plan: UserPlan; // Add plan to User interface
+  }
+}
+
+// Extend the JWT type to include custom fields
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+    email: string;
+    role: UserRole;
+    parentId?: string | null;
+    plan: UserPlan;
   }
 }
 
@@ -55,12 +71,15 @@ export const authConfig = {
           const passwordsMatch = await bcrypt.compare(password, user.passwordHash);
 
           if (passwordsMatch) {
+            // Return a User object that matches the extended User interface
+            // Ensure all required fields for the extended User interface are present
             return {
               id: user.id,
               email: user.email,
               role: user.role as UserRole, // Ensure role is correctly typed
               parentId: user.parentId,
-            };
+              plan: user.plan as UserPlan, // Ensure plan is correctly typed
+            } as AdapterUser; // Cast to AdapterUser to satisfy NextAuth's type
           }
         }
         return null; // Invalid credentials
@@ -70,19 +89,24 @@ export const authConfig = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        // When a user signs in, the `user` object is available.
+        // Populate the token with custom user data from the database.
         token.id = user.id;
         token.email = user.email;
         token.role = user.role;
         token.parentId = user.parentId;
+        token.plan = user.plan;
       }
       return token;
     },
     async session({ session, token }) {
-      if (token.id && session.user) {
-        session.user.id = token.id as string;
-        session.user.email = token.email as string;
-        session.user.role = token.role as UserRole;
-        session.user.parentId = token.parentId as string | null | undefined;
+      // When a session is accessed, populate the session.user with data from the token.
+      if (session.user) {
+        session.user.id = token.id;
+        session.user.email = token.email;
+        session.user.role = token.role;
+        session.user.parentId = token.parentId;
+        session.user.plan = token.plan;
       }
       return session;
     },
