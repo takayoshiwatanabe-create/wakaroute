@@ -14,6 +14,8 @@ export default function RootLayout() {
         <View style={{ flex: 1, flexDirection: isRTL ? "row-reverse" : "row" }}>
           <Stack>
             <Stack.Screen name="index" options={{ title: t("app_name") }} />
+            <Stack.Screen name="(auth)/login/page" options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)/signup/page" options={{ headerShown: false }} />
             {/* Add other screens here */}
           </Stack>
         </View>

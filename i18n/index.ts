@@ -6,10 +6,12 @@ const SUPPORTED: Language[] = ["ja", "en", "zh", "ko", "es", "fr", "de", "pt", "
 function getLanguage(): Language {
   try {
     const locales = Localization.getLocales();
-    const deviceLang = locales[0]?.languageCode ?? "ja";
-    if (SUPPORTED.includes(deviceLang as Language)) return deviceLang as Language;
+    // Ensure locales[0] exists before accessing languageCode
+    const deviceLang = locales[0]?.languageCode;
+    if (deviceLang && SUPPORTED.includes(deviceLang as Language)) return deviceLang as Language;
     return "ja";
-  } catch {
+  } catch (error) {
+    console.error("Error getting device language:", error);
     return "ja";
   }
 }
@@ -17,7 +19,7 @@ function getLanguage(): Language {
 export const lang = getLanguage();
 export const isRTL = ["ar"].includes(lang);
 
-export function t(key: string, vars?: Record<string, string | number>): string {
+export function t(key: keyof (typeof translations)["ja"], vars?: Record<string, string | number>): string {
   const dict = translations[lang] ?? translations.ja;
   let text = dict[key] ?? translations.ja[key] ?? key;
   if (vars) {
