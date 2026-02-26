@@ -69,5 +69,35 @@
     "activity_two_days_ago": "2日前",
     "loading_children_progress": "お子様の進捗を読み込み中...",
     "no_children_registered": "まだお子様が登録されていません。お子様のアカウントが連携されていることを確認してください。"
+  },
+  "pricing": {
+    "pricing_title": "最適なプランを選ぼう",
+    "pricing_subtitle": "あなたの学習スタイルに合ったプランを見つけましょう。",
+    "free_plan_name": "無料プラン",
+    "free_price": "¥0",
+    "free_feature_1": "AI分解: 月5回まで",
+    "free_feature_2": "逆のぼり診断: 無制限",
+    "free_feature_3": "対応言語: 日・英のみ",
+    "free_feature_4": "保護者連携: なし",
+    "premium_plan_name": "プレミアムプラン",
+    "premium_price": "¥980 / 月",
+    "premium_feature_1": "AI分解: 無制限",
+    "premium_feature_2": "全言語対応",
+    "premium_feature_3": "保護者連携フル機能",
+    "premium_feature_4": "学習レポートPDF出力",
+    "family_plan_name": "ファミリープラン",
+    "family_price": "¥1,980 / 月",
+    "family_feature_1": "プレミアム機能 + お子様5人まで",
+    "family_feature_2": "兄弟間の進捗比較なし",
+    "school_plan_name": "スクールプラン",
+    "school_price": "お問い合わせください",
+    "school_feature_1": "クラス単位管理",
+    "school_feature_2": "LMS連携API",
+    "school_feature_3": "カスタムブランディング",
+    "select_button": "このプランを選ぶ",
+    "current_plan_button": "現在のプラン",
+    "recommended_badge": "おすすめ",
+    "contact_us_button": "お問い合わせ"
   }
 }
+

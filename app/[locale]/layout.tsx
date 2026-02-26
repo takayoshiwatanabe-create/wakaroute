@@ -30,7 +30,7 @@ export default async function LocaleLayout({ children, params: { locale } }: Roo
   return (
     <html lang={locale} dir={rtl ? 'rtl' : 'ltr'}>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages} locale={locale}> {/* Pass locale prop here */}
+        <NextIntlClientProvider messages={messages}> {/* messages prop is enough, locale is implicitly available */}
           {children}
         </NextIntlClientProvider>
       </body>

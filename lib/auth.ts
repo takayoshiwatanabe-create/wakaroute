@@ -6,6 +6,10 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/lib/db";
 import type { JWT } from "@auth/core/jwt"; // Corrected import for JWT type extension
 
+// Define the user roles as per the project specification (implicit from parent/child logic)
+export type UserRole = "CHILD" | "PARENT";
+export type UserPlan = "Free" | "Premium" | "Family" | "School"; // Define UserPlan type
+
 // Extend the NextAuth.js User type to include custom fields
 declare module "next-auth" {
   interface User {
@@ -34,10 +38,6 @@ declare module "@auth/core/jwt" { // Corrected import for JWT type extension
   }
 }
 
-// Define the user roles as per the project specification (implicit from parent/child logic)
-export type UserRole = "CHILD" | "PARENT";
-export type UserPlan = "Free" | "Premium" | "Family" | "School"; // Define UserPlan type
-
 // Zod schema for login input validation
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -55,6 +55,7 @@ export const {
   providers: [
     Credentials({
       async authorize(credentials) {
+        // Type assertion for credentials to match the schema
         const validatedFields = loginSchema.safeParse(credentials);
 
         if (validatedFields.success) {

@@ -38,7 +38,7 @@
     "clear_image_button": "مسح الصورة",
     "decompose_button": "فكك!",
     "decomposing_button": "جارٍ التفكيك...",
-    "decompose_error_generic": "يبدو أن الذكاء الاصطناعي يواجه مشكلة في التفكيك. دعنا نحاول إعادة الصياغة. 💡",
+    "decompose_error_generic": "يبدو أن الذكاء الاصناعي يواجه مشكلة في التفكيك. دعنا نحاول إعادة الصياغة. 💡",
     "free_plan_limit_reached": "تم الوصول إلى حد الخطة المجانية. قم بالترقية إلى Premium للحصول على تفكيك غير محدود. 💡"
   },
   "reverse_diagnose": {
@@ -69,5 +69,36 @@
     "activity_two_days_ago": "قبل يومين",
     "loading_children_progress": "جارٍ تحميل تقدم الأطفال...",
     "no_children_registered": "لم يتم تسجيل أي أطفال بعد. يرجى التأكد من ربط حسابات أطفالك."
+  },
+  "pricing": {
+    "pricing_title": "اختر خطتك",
+    "pricing_subtitle": "ابحث عن الخطة المثالية التي تناسب احتياجات التعلم الخاصة بك.",
+    "free_plan_name": "مجاني",
+    "free_price": "0 دولار",
+    "free_feature_1": "5 تفكيكات بالذكاء الاصطناعي شهريًا",
+    "free_feature_2": "تشخيص عكسي غير محدود",
+    "free_feature_3": "اللغات: اليابانية والإنجليزية فقط",
+    "free_feature_4": "لا يوجد ربط بالوالدين",
+    "premium_plan_name": "مميز",
+    "premium_price": "9.99 دولارًا / شهر",
+    "premium_feature_1": "تفكيك غير محدود بالذكاء الاصطناعي",
+    "premium_feature_2": "دعم جميع اللغات",
+    "premium_feature_3": "ربط كامل بالوالدين",
+    "premium_feature_4": "تصدير تقارير التعلم بصيغة PDF",
+    "family_plan_name": "عائلي",
+    "family_price": "19.99 دولارًا / شهر",
+    "family_feature_1": "جميع ميزات Premium",
+    "family_feature_2": "ما يصل إلى 5 أطفال",
+    "school_plan_name": "مدرسي",
+    "school_price": "اتصل بنا",
+    "school_feature_1": "إدارة على مستوى الفصل",
+    "school_feature_2": "واجهة برمجة تطبيقات تكامل LMS",
+    "school_feature_3": "علامة تجارية مخصصة",
+    "select_button": "اختر الخطة",
+    "contact_us_button": "اتصل بنا",
+    "current_plan_button": "الخطة الحالية",
+    "recommended_badge": "موصى به",
+    "plan_selected_message": "تم تحديد الخطة {planName}.",
+    "loading_plans": "جارٍ تحميل خطط التسعير..."
   }
 }

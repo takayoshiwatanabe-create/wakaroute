@@ -9,7 +9,7 @@ interface ChildProgressCardProps {
   childName: string;
   aiDecompositionsUsed: number;
   aiDecompositionsLimit: number;
-  lastActivity: string;
+  lastActivity: "activity_today" | "activity_yesterday" | "activity_two_days_ago"; // Specific keys for translation
   recentDiscoveries: number;
   className?: string;
 }
@@ -63,7 +63,7 @@ export function ChildProgressCard({
           {t("last_activity")}
         </p>
         <p className="text-gray-900 dark:text-white text-base font-medium" style={{ direction: rtl ? 'rtl' : 'ltr' }}>
-          {lastActivity}
+          {t(lastActivity)} {/* Translate the activity key */}
         </p>
       </div>
 
