@@ -224,33 +224,71 @@ School プラン（法人）:
 ### 7.1 憲法改定プロセス
 
 - 本憲法の改定にはリードアーキテクト + プロダクトオーナーの承認が必要
-- セキュリティ関連条
+- セキュリティ関連条項の変更には法務部門のレビューを必須とする
 
 ## Design Specification
-N/A
+
+### 認証APIとデータベース連携 (1)
+
+#### 目的
+ユーザー認証（ログイン、サインアップ）機能を実装し、NextAuth.js v5 (Auth.js) を使用して安全かつ効率的な認証フローを確立する。ユーザーデータはPostgreSQLデータベースにPrisma ORMを介して永続化する。
+
+#### 認証フロー
+1.  **サインアップ**:
+    *   ユーザーはメールアドレスとパスワードを入力してアカウントを作成する。
+    *   13歳未満のユーザー登録には保護者のメールアドレス確認を必須とする（児童プライバシー保護要件）。
+    *   パスワードは bcrypt (コスト係数12以上) でハッシュ化し、データベースに保存する。
+    *   成功後、ユーザーは自動的にログイン状態になる。
+2.  **ログイン**:
+    *   ユーザーは登録済みのメールアドレスとパスワードを入力してログインする。
+    *   NextAuth.jsのCredentials Providerを使用して認証を行う。
+    *   認証成功後、JWTトークンが発行され、セッションが確立される。
+
+#### 技術的詳細
+*   **NextAuth.js v5 (Auth.js)**: 認証ライブラリとして使用。
+    *   `CredentialsProvider` を使用してカスタムログインロジックを実装。
+    *   `Adapter` を使用してPrismaと連携し、ユーザー情報をDBに保存・取得。
+*   **Prisma v6**: ORMとして使用し、PostgreSQLデータベースとのインタラクションを管理。
+    *   `User` モデルと `Account` モデル（NextAuth.js用）を定義。
+    *   パスワードハッシュ化には `bcrypt` ライブラリをサーバーサイドで使用。
+*   **Zod**: フォーム入力のバリデーションに使用。
+*   **Server Actions**: 認証処理はNext.js Server Actionsを介して実行し、クライアントサイドからの直接DBアクセスを禁止する。
+
+#### UI/UX要件
+*   **ポジティブ・ファースト**: エラーメッセージはユーザーを責めるのではなく、解決策を提示する形式にする。
+*   **ローディング状態**: 認証処理中はローディングインジケータを表示し、ボタンを無効化する。
+*   **国際化**: `next-intl` を使用し、すべてのUIテキストは多言語対応する。
+*   **RTLサポート**: アラビア語 (ar) の場合、レイアウトが右から左になるように調整する。
 
 ## Development Instructions
-N/A
+- The project must be a Next.js 15 application using the App Router.
+- All authentication logic must be handled server-side using NextAuth.js and Prisma.
+- Client-side components should not directly interact with the database or authentication logic.
+- Use `next-intl` for internationalization, not `expo-localization`.
+- Ensure all UI components are built for web (HTML/CSS), not React Native.
+- Implement Zod for server-side input validation for all forms.
 
 ## Technical Stack
 - Next.js 15 + React 19 + TypeScript (strict mode)
 - TailwindCSS 4
 - Vitest for unit tests
 - Playwright for E2E tests
+- NextAuth.js v5 (Auth.js)
+- Prisma v6
+- PostgreSQL (Supabase)
+- next-intl v3
 
 ## Code Standards
 - TypeScript strict mode, no `any`
 - Minimal comments — code should be self-documenting
-- Use path alias `@/` for imports from `src/`
+- Use path alias `@/` for imports from `src/` (e.g., `import { Button } from '@/components/ui/button'`)
 - All components use functional style with proper typing
 
 ## Internationalization (i18n)
 - Supported languages: ja (日本語), en (English), zh (中文), ko (한국어), es (Español), fr (Français), de (Deutsch), pt (Português), ar (العربية), hi (हिन्दी)
 - Use the i18n module at `@/i18n` for all user-facing strings
 - Use `t("key")` function for translations — never hardcode UI strings
-- Auto-detect device language via expo-localization
+- Auto-detect device language via `next-intl` middleware.
 - Default language: ja (Japanese)
 - RTL support required for Arabic (ar)
-- Use isRTL flag from i18n module for layout adjustments
-
-
+- Use `direction` property from `next-intl` for layout adjustments.

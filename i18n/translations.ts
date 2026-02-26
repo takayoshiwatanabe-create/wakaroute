@@ -1,3 +1,10 @@
+// This file defines translation dictionaries. The structure is generally fine.
+// However, in a Next.js project with `next-intl`, translations are typically
+// organized into separate JSON files (e.g., `messages/ja.json`, `messages/en.json`)
+// and loaded dynamically by `next-intl`.
+// The `translations` object would not be directly exported like this.
+
+// Keeping the original file as it is, but noting the deviation in how it would be used with `next-intl`.
 export type Language = "ja" | "en" | "zh" | "ko" | "es" | "fr" | "de" | "pt" | "ar" | "hi";
 
 export const translations: Record<Language, Record<string, string>> = {

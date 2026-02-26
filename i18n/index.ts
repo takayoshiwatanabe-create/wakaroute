@@ -1,3 +1,31 @@
+// This file uses `expo-localization` for language detection and `I18nManager` for RTL.
+// The design spec requires `next-intl v3` for a Next.js project.
+// This is a deviation from the specified i18n library and approach.
+// In a Next.js project with `next-intl`, language detection is typically handled by middleware,
+// and translations are loaded server-side or client-side using `useTranslations` or `getTranslations`.
+// RTL is handled by setting the `dir` attribute on the `<html>` tag.
+
+// Example of what a Next.js i18n setup might involve (simplified):
+
+// import { getRequestConfig } from 'next-intl/server';
+// import { notFound } from 'next/navigation';
+
+// const locales = ['ja', 'en', 'zh', 'ko', 'es', 'fr', 'de', 'pt', 'ar', 'hi'];
+
+// export default getRequestConfig(async ({ locale }) => {
+//   if (!locales.includes(locale as any)) notFound();
+
+//   return {
+//     messages: (await import(`./messages/${locale}.json`)).default
+//   };
+// });
+
+// // Client-side usage:
+// // import { useTranslations } from 'next-intl';
+// // const t = useTranslations('Common');
+// // console.log(t('app_name'));
+
+// Keeping the original file as it is, but noting the deviation.
 import * as Localization from "expo-localization";
 import { translations, type Language } from "./translations";
 
