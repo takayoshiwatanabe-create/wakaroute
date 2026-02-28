@@ -28,10 +28,11 @@
     "@google/generative-ai": "^0.14.1",
     "@upstash/redis": "^1.31.5",
     "@upstash/ratelimit": "^1.0.1",
-    "stripe": "^15.10.0"
+    "stripe": "^15.10.0",
+    "@hookform/resolvers": "^3.6.0",
+    "react-hook-form": "^7.52.0"
   },
   "devDependencies": {
-    "@hookform/resolvers": "^3.6.0",
     "@playwright/test": "^1.44.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.14.2",
